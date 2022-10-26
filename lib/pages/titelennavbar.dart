@@ -1,20 +1,22 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
 
-class MyStatefulWidget extends StatefulWidget {
-  const MyStatefulWidget({super.key});
+import 'package:flutter/material.dart';
+import 'leermenu.dart';
+
+class MyNavbar extends StatefulWidget {
+  const MyNavbar({super.key});
 
   @override
-  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
+  State<MyNavbar> createState() => _MyStatefulWidgetState();
 }
 
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+class _MyStatefulWidgetState extends State<MyNavbar> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Leer',
-      style: optionStyle,
+    MyCard(
+      
     ),
     Text(
       'Scan',
