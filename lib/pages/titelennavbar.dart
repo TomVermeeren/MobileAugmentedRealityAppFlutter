@@ -13,8 +13,7 @@ class MyNavbar extends StatefulWidget {
 
 class _MyStatefulWidgetState extends State<MyNavbar> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+
   static const List<Widget> _widgetOptions = <Widget>[
     MyCard(),
     HomePage(),
@@ -29,8 +28,12 @@ class _MyStatefulWidgetState extends State<MyNavbar> {
 
   @override
   Widget build(BuildContext context) {
+    mainAxisSize:
+    MainAxisSize.min;
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 100,
+        leadingWidth: 100,
         title: _widgetOptions.elementAt(_selectedIndex),
         centerTitle: true,
       ),
