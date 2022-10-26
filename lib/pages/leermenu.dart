@@ -1,7 +1,9 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
 class MyCard extends StatefulWidget {
-   const MyCard({super.key});
+  const MyCard({super.key});
   @override
   _State createState() => _State();
 }
@@ -9,38 +11,38 @@ class MyCard extends StatefulWidget {
 class _State extends State<MyCard> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xfffeeeeee),
-      appBar: AppBar(
-        title: Text('Card'),
-      ),
-      body: Center(
-        child: Card(
-          color: Colors.white,
-          elevation: 10.0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5.0),
-          ),
-          child: Container(
-            padding: EdgeInsets.all(10),
-            height: 100,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  'Try not to become a man of success , but rather try to become a man of value.',
-                  style: TextStyle(fontSize: 15.0),
-                ),
-                SizedBox(height: 10.0),
-                Text(
-                  '-Albert Einstein',
-                  style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-                )
-              ],
+    // ignore: prefer_const_literals_to_create_immutables
+    return Row(children: [
+      Expanded(
+        child: ElevatedButton(
+          onPressed: () {
+            _KlikOpMenuKnop();
+          },
+          child: Card(
+            elevation: 0,
+            color: Colors.red,
+            shape: RoundedRectangleBorder(
+              side: BorderSide(
+                color: Colors.black,
+              ),
+              borderRadius: const BorderRadius.all(Radius.circular(12)),
+            ),
+            child: const SizedBox(
+              height: 70,
+              child: Center(
+                child: Text('Verbodsborden', style: TextStyle(fontSize: 20.0)),
+              ),
             ),
           ),
         ),
       ),
-    );
+      Icon(
+        Icons.play_circle_fill,
+        color: Colors.red,
+        size: 50.0,
+      )
+    ]);
   }
+
+  void _KlikOpMenuKnop() {}
 }
