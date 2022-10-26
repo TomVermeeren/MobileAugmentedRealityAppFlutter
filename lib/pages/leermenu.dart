@@ -11,22 +11,42 @@ class MyCard extends StatefulWidget {
 class _State extends State<MyCard> {
   @override
   Widget build(BuildContext context) {
-    // ignore: prefer_const_literals_to_create_immutables
-    return Row(children: [
-      Expanded(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('First Route'),
+      ),
+      body: Center(
         child: ElevatedButton(
+          child: const Text('Open route'),
           onPressed: () {
-            _KlikOpMenuKnop() {}
-            ;
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const SecondRoute()),
+            );
           },
-          child: const SizedBox(
-            height: 70,
-            child: Center(
-              child: Text('Verbodsborden', style: TextStyle(fontSize: 20.0)),
-            ),
-          ),
         ),
       ),
-    ]);
+    );
+  }
+}
+
+class SecondRoute extends StatelessWidget {
+  const SecondRoute({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Second Route'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Text('Go back!'),
+        ),
+      ),
+    );
   }
 }
