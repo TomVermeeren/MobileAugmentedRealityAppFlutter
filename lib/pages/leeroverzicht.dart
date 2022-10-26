@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'leermenu.dart';
+
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -27,26 +27,21 @@ class LeerOverzicht extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Card(
-              child: ElevatedButton(
-                onPressed: () {
-                  Card(){
-                    
-                  }
-                },
-                child: const SizedBox(
-                  width: 300,
-                  height: 100,
-                  child: Text('A card that can be tapped'),
-                ),
-              ),
+      child:
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+        Card(
+          child: ElevatedButton(
+            onPressed: () {
+              Card() {}
+            },
+            child: const SizedBox(
+              width: 300,
+              height: 100,
+              child: Text('A card that can be tapped'),
             ),
-            
-            ]
-      ),
+          ),
+        ),
+      ]),
     );
   }
 }
