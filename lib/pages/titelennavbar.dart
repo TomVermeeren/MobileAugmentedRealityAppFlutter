@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'leermenu.dart';
-
+import 'leeroverzicht.dart';
+import 'scan.dart';
 class MyNavbar extends StatefulWidget {
   const MyNavbar({super.key});
 
@@ -14,13 +15,8 @@ class _MyStatefulWidgetState extends State<MyNavbar> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     MyCard(),
-    Text(
-      'Scan',
-      style: optionStyle,
-    ),
-    Text(
-      'Test',
-      style: optionStyle,
+    HomePage(),
+    LeerOverzicht(
     ),
   ];
 
