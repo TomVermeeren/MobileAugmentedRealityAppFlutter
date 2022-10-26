@@ -16,7 +16,8 @@ class _State extends State<MyCard> {
       Expanded(
         child: ElevatedButton(
           onPressed: () {
-            _KlikOpMenuKnop();
+            _KlikOpMenuKnop() {}
+            ;
           },
           child: Card(
             elevation: 0,
@@ -43,6 +44,4 @@ class _State extends State<MyCard> {
       )
     ]);
   }
-
-  void _KlikOpMenuKnop() {}
 }
