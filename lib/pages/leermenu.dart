@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import '../pages/leerverbodsbord.dart';
+import '../pages/leergevarenbord.dart';
 
 class MyCard extends StatefulWidget {
   const MyCard({super.key});
@@ -43,48 +45,6 @@ class _State extends State<MyCard> {
           ),
         ),
       ],
-    );
-  }
-}
-
-class RouteVerbodsbord extends StatelessWidget {
-  const RouteVerbodsbord({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Verbodsbord'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: const Text('Go back!'),
-        ),
-      ),
-    );
-  }
-}
-
-class RouteGevarenbord extends StatelessWidget {
-  const RouteGevarenbord({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Gevarenbord'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: const Text('Go back!'),
-        ),
-      ),
     );
   }
 }
