@@ -34,7 +34,7 @@ class _MyStatefulWidgetState extends State<MyNavbar> {
       appBar: AppBar(
         toolbarHeight: 100,
         leadingWidth: 100,
-        title: _widgetOptions.elementAt(_selectedIndex),
+        title: const Text("Verkeersborden Tom & Jan"),
         centerTitle: true,
       ),
       body: Center(
