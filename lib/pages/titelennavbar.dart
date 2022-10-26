@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'leermenu.dart';
 
@@ -15,9 +13,7 @@ class _MyStatefulWidgetState extends State<MyNavbar> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    MyCard(
-      
-    ),
+    MyCard(),
     Text(
       'Scan',
       style: optionStyle,
