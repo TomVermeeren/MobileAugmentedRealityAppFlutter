@@ -19,29 +19,14 @@ class _State extends State<MyCard> {
             _KlikOpMenuKnop() {}
             ;
           },
-          child: Card(
-            elevation: 0,
-            color: Colors.red,
-            shape: RoundedRectangleBorder(
-              side: BorderSide(
-                color: Colors.black,
-              ),
-              borderRadius: const BorderRadius.all(Radius.circular(12)),
-            ),
-            child: const SizedBox(
-              height: 70,
-              child: Center(
-                child: Text('Verbodsborden', style: TextStyle(fontSize: 20.0)),
-              ),
+          child: const SizedBox(
+            height: 70,
+            child: Center(
+              child: Text('Verbodsborden', style: TextStyle(fontSize: 20.0)),
             ),
           ),
         ),
       ),
-      Icon(
-        Icons.play_circle_fill,
-        color: Colors.red,
-        size: 50.0,
-      )
     ]);
   }
 }
