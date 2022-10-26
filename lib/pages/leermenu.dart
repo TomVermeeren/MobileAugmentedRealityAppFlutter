@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import '../pages/leerverbodsbord.dart';
 import '../pages/leergevarenbord.dart';
 
+import '../models/verkeersbord.dart';
+import '../apis/verkeersbord_api.dart';
+
 class MyCard extends StatefulWidget {
   const MyCard({super.key});
   @override
