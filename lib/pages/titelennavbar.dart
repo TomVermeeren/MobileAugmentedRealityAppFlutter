@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'leermenu.dart';
 import 'leeroverzicht.dart';
 import 'scan.dart';
+
 class MyNavbar extends StatefulWidget {
   const MyNavbar({super.key});
 
@@ -11,13 +12,11 @@ class MyNavbar extends StatefulWidget {
 
 class _MyStatefulWidgetState extends State<MyNavbar> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+
   static const List<Widget> _widgetOptions = <Widget>[
     MyCard(),
     HomePage(),
-    LeerOverzicht(
-    ),
+    LeerOverzicht(),
   ];
 
   void _onItemTapped(int index) {
@@ -28,8 +27,12 @@ class _MyStatefulWidgetState extends State<MyNavbar> {
 
   @override
   Widget build(BuildContext context) {
+    mainAxisSize:
+    MainAxisSize.min;
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 100,
+        leadingWidth: 100,
         title: _widgetOptions.elementAt(_selectedIndex),
         centerTitle: true,
       ),
