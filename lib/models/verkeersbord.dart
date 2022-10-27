@@ -3,12 +3,15 @@ class Verkeersbord {
   String naam;
   String beschrijving;
   String afbeeldingLink;
+  String categorie;
 
-  Verkeersbord(
-      {required this.id,
-      required this.naam,
-      required this.beschrijving,
-      required this.afbeeldingLink});
+  Verkeersbord({
+    required this.id,
+    required this.naam,
+    required this.beschrijving,
+    required this.afbeeldingLink,
+    required this.categorie,
+  });
 
   factory Verkeersbord.fromJson(Map<String, dynamic> json) {
     return Verkeersbord(
@@ -16,6 +19,7 @@ class Verkeersbord {
       naam: json['naam'],
       beschrijving: json['beschrijving'],
       afbeeldingLink: json['afbeeldingLink'],
+      categorie: json['categorie'],
     );
   }
 
@@ -23,5 +27,6 @@ class Verkeersbord {
         'naam': naam,
         'beschrijving': beschrijving,
         'afbeeldingLink': afbeeldingLink,
+        'categorie': categorie,
       };
 }

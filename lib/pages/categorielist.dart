@@ -21,7 +21,7 @@ class _CategorieListPageState extends State {
       ),
       body: Container(
         padding: const EdgeInsets.all(5.0),
-        child: catergorieListItems(),
+        child: categorieListItems(),
       ),
     );
   }
@@ -41,7 +41,7 @@ class _CategorieListPageState extends State {
     });
   }
 
-  ListView catergorieListItems() {
+  ListView categorieListItems() {
     return ListView.builder(
       itemCount: count,
       itemBuilder: (BuildContext context, int position) {
