@@ -83,6 +83,11 @@ flutter:
     - assets/Verkeersbord_J19.png
     - assets/Verkeersbord_J20.png
     - assets/Verkeersbord_J32.png
+    - assets/Verkeersbord_J21.png
+    - assets/Verkeersbord_D1e.png
+    - assets/Verkeersbord_D3b.png
+    - assets/Verkeersbord_D11.png
+    
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
