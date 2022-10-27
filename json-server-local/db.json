@@ -1,4 +1,4 @@
-{
+
   "categorieen": [
     {
       "id": 1,
@@ -27,6 +27,7 @@
     }
   ],
   "verkeersborden": [
+
       {
         "id": 1,
         "naam": "Zone 30",

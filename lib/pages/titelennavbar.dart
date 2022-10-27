@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_verkeersborden_tom_jan/pages/categorielist.dart';
 import 'package:flutter_verkeersborden_tom_jan/pages/verkeersbordlist.dart';
 import 'leermenu.dart';
 import 'leeroverzicht.dart';
@@ -17,7 +18,7 @@ class _MyStatefulWidgetState extends State<MyNavbar> {
   static const List<Widget> _widgetOptions = <Widget>[
     MyCard(),
     HomePage(),
-    VerkeersbordenListPage()
+    CategorieListPage()
   ];
 
   void _onItemTapped(int index) {
