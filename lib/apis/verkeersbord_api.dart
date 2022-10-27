@@ -5,6 +5,7 @@ import '../models/verkeersbord.dart';
 class VerkeersbordApi {
   static String server = 'quiet-banks-slide-81-246-184-163.loca.lt';
 
+
   static Future<List<Verkeersbord>> fetchVerkeerborden() async {
     var url = Uri.https(server, '/verkeersborden');
 
