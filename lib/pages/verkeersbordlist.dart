@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/verkeersbord.dart';
 import '../apis/verkeersbord_api.dart';
+import 'leergevarenbord.dart';
 
 class VerkeersbordenListPage extends StatefulWidget {
   const VerkeersbordenListPage({Key? key}) : super(key: key);
@@ -46,7 +47,17 @@ class _VerkeersbordListPageState extends State {
         return Card(
           color: Colors.white,
           elevation: 2.0,
-          child: Text(verkeersbordList[position].naam),
+          child: ElevatedButton(
+            child: Text(verkeersbordList[position].naam),
+            onPressed: () {
+              Navigator.push(
+                context,
+                new MaterialPageRoute(
+                    builder: (context) =>
+                        MyRoute(titel: verkeersbordList[position].naam)),
+              );
+            },
+          ),
         );
       },
     );
