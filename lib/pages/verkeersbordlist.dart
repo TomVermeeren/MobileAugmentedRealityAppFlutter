@@ -4,20 +4,22 @@ import '../apis/verkeersbord_api.dart';
 import 'leergevarenbord.dart';
 
 class VerkeersbordenListPage extends StatefulWidget {
-  const VerkeersbordenListPage({Key? key}) : super(key: key);
+  final String titel;
+  const VerkeersbordenListPage({Key? key, required this.titel})
+      : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _VerkeersbordListPageState();
+  State<StatefulWidget> createState() => _VerkeersbordListPageState(titel);
 }
 
 class _VerkeersbordListPageState extends State {
+  String titel;
+  _VerkeersbordListPageState(this.titel);
   List<Verkeersbord> verkeersbordList = [];
   int count = 0;
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Verkeersborden"),
-      ),
       body: Container(
         padding: const EdgeInsets.all(5.0),
         child: verkeersbordListItems(),
@@ -42,24 +44,25 @@ class _VerkeersbordListPageState extends State {
 
   ListView verkeersbordListItems() {
     return ListView.builder(
-      itemCount: count,
-      itemBuilder: (BuildContext context, int position) {
-        return Card(
-          color: Colors.white,
-          elevation: 2.0,
-          child: ElevatedButton(
-            child: Text(verkeersbordList[position].naam),
-            onPressed: () {
-              Navigator.push(
-                context,
-                new MaterialPageRoute(
-                    builder: (context) =>
-                        MyRoute(titel: verkeersbordList[position].naam)),
-              );
-            },
-          ),
-        );
-      },
-    );
+        itemCount: count,
+        itemBuilder: (BuildContext context, int position) {
+          return Container(
+              child: (() {
+            if (verkeersbordList[position].categorie == titel) {
+              return Card(
+                  color: Colors.white,
+                  elevation: 2.0,
+                  child: ElevatedButton(
+                      child: Text(verkeersbordList[position].naam),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            new MaterialPageRoute(
+                                builder: (context) => MyRoute(
+                                    titel: verkeersbordList[position].naam)));
+                      }));
+            }
+          }()));
+        });
   }
 }
