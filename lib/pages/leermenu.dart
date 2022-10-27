@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
+// VOORLOPIG IS DEZE NIET FUNCTIONEEL
 
 import 'package:flutter/material.dart';
-import '../pages/leerverbodsbord.dart';
 import '../pages/leergevarenbord.dart';
 
 import '../models/verkeersbord.dart';
@@ -39,7 +39,9 @@ class _State extends State<MyCard> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const RouteVerbodsbord()),
+                      builder: (context) => MyRoute(
+                            titel: "Verbodsborden",
+                          )),
                 );
               },
             ),
