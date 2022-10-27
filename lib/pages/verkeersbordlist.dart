@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_verkeersborden_tom_jan/pages/detailbordinfo.dart';
 import '../models/verkeersbord.dart';
 import '../apis/verkeersbord_api.dart';
 import 'leergevarenbord.dart';
@@ -58,8 +59,12 @@ class _VerkeersbordListPageState extends State {
                         Navigator.push(
                             context,
                             new MaterialPageRoute(
-                                builder: (context) => MyRoute(
-                                    titel: verkeersbordList[position].naam)));
+                                builder: (context) => DetailPage(
+                                    titel: verkeersbordList[position].naam,
+                                    beschrijving:
+                                        verkeersbordList[position].beschrijving,
+                                    afbeeldingLink: verkeersbordList[position]
+                                        .afbeeldingLink)));
                       }));
             }
           }()));
