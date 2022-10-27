@@ -1,4 +1,17 @@
 {
+  "categorieen":[
+    {
+      "id": 1,
+      "naam": "Cat1",
+      "afbeeldingLink": ""
+    },
+    {
+      "id": 2,
+      "naam": "Cat2",
+      "afbeeldingLink": ""
+    }
+    
+  ],
     "verkeersborden": [
       {
         "id": 1,
