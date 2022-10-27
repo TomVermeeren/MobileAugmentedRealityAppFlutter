@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_verkeersborden_tom_jan/pages/verkeersbordlist.dart';
 
@@ -19,16 +21,23 @@ class DetailPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(titel),
       ),
-      body: Center(
+      body: Container(
+          margin: const EdgeInsets.all(20.0),
+          width: 2000,
           child: Column(
-        children: [
-          Image(
-            image: avatarAsset,
-            width: 100.0,
-          ),
-          Text(beschrijving),
-        ],
-      )),
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Flexible(
+                  child: Image(
+                image: avatarAsset,
+                width: 100.0,
+              )),
+              Flexible(
+                child: Text(beschrijving),
+              )
+            ],
+          )),
     );
   }
 }
