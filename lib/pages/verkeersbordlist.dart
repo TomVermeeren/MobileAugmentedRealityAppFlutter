@@ -55,29 +55,30 @@ class _VerkeersbordListPageState extends State {
               child: (() {
             if (verkeersbordList[position].categorie == titel) {
               return Card(
-                  color: Colors.white,
-                  elevation: 2.0,
-                  child: Column(
-                    children: [
-                      IconButton(
-                          icon: Image.asset(
-                              verkeersbordList[position].afbeeldingLink),
-                          iconSize: 100.0,
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                new MaterialPageRoute(
-                                    builder: (context) => DetailPage(
-                                        titel: verkeersbordList[position].naam,
-                                        beschrijving: verkeersbordList[position]
-                                            .beschrijving,
-                                        afbeeldingLink:
-                                            verkeersbordList[position]
-                                                .afbeeldingLink)));
-                          }),
-                      Text(verkeersbordList[position].naam)
-                    ],
-                  ));
+                color: Colors.white,
+                elevation: 2.0,
+                child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          new MaterialPageRoute(
+                              builder: (context) => DetailPage(
+                                  titel: verkeersbordList[position].naam,
+                                  beschrijving:
+                                      verkeersbordList[position].beschrijving,
+                                  afbeeldingLink: verkeersbordList[position]
+                                      .afbeeldingLink)));
+                    },
+                    child: Column(
+                      children: [
+                        Image(
+                          image: afbeeldinglink,
+                          height: 150.0,
+                        ),
+                        Text(verkeersbordList[position].naam)
+                      ],
+                    )),
+              );
             }
           }()));
         });
