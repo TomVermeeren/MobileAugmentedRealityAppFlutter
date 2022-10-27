@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
-class RouteGevarenbord extends StatelessWidget {
-  const RouteGevarenbord({super.key});
+class MyRoute extends StatelessWidget {
+  final String titel;
+  MyRoute({Key? key, required this.titel}) : super(key: key) {}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Gevarenbord'),
+        title: Text(titel),
       ),
       body: Center(
         child: ElevatedButton(

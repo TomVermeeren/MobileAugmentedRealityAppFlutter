@@ -20,16 +20,21 @@ class _State extends State<MyCard> {
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        
         Flexible(
-          
-          child: Center(child: SizedBox(
-                    height: 100,
-                    
-                    width: 100,
+          child: ElevatedButton(
+            child: const Text('Verbodsbord'),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MyRoute(titel: "Test")),
+              );
+            },
+          ),
+        ),
+        Flexible(
+          child: Center(
             child: ElevatedButton(
-              
-              child: const Text('Verbodsbord'),
+              child: const Text('Gevarenbord'),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -37,34 +42,8 @@ class _State extends State<MyCard> {
                       builder: (context) => const RouteVerbodsbord()),
                 );
               },
-              
             ),
           ),
-          ),
-        ),
-        Flexible(
-                            child: SizedBox(
-                    height: 100,
-                    width: 100,
-                  
-          child: Center(
-            
-            child: ElevatedButton(
-              child: const Text('Gevarenbord'),
-              
-              onPressed: () {
-                Navigator.push(
-
-                  context,
-                  MaterialPageRoute(
-                    
-                      builder: (context) => const RouteGevarenbord()),
-                );
-                
-              },
-            ),
-          ),
-        ),
         ),
       ],
     );
