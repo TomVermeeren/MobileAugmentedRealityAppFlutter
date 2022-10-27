@@ -65,7 +65,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/verkeersbord_test.svg
+    - assets/Verkeersbord_D5.png
     - assets/Verkeersbord_A1-30zb.png
     - assets/Verkeersbord_A1-30ze.png
     - assets/Verkeersbord_A1-70.png
