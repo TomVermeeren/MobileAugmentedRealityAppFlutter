@@ -15,7 +15,9 @@ class VerkeersbordenListPage extends StatefulWidget {
 
 class _VerkeersbordListPageState extends State {
   String titel;
+
   _VerkeersbordListPageState(this.titel);
+
   List<Verkeersbord> verkeersbordList = [];
   int count = 0;
   @override
@@ -47,25 +49,35 @@ class _VerkeersbordListPageState extends State {
     return ListView.builder(
         itemCount: count,
         itemBuilder: (BuildContext context, int position) {
+          AssetImage afbeeldinglink =
+              AssetImage(verkeersbordList[position].afbeeldingLink);
           return Container(
               child: (() {
             if (verkeersbordList[position].categorie == titel) {
               return Card(
                   color: Colors.white,
                   elevation: 2.0,
-                  child: ElevatedButton(
-                      child: Text(verkeersbordList[position].naam),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            new MaterialPageRoute(
-                                builder: (context) => DetailPage(
-                                    titel: verkeersbordList[position].naam,
-                                    beschrijving:
-                                        verkeersbordList[position].beschrijving,
-                                    afbeeldingLink: verkeersbordList[position]
-                                        .afbeeldingLink)));
-                      }));
+                  child: Column(
+                    children: [
+                      IconButton(
+                          icon: Image.asset(
+                              verkeersbordList[position].afbeeldingLink),
+                          iconSize: 100.0,
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                new MaterialPageRoute(
+                                    builder: (context) => DetailPage(
+                                        titel: verkeersbordList[position].naam,
+                                        beschrijving: verkeersbordList[position]
+                                            .beschrijving,
+                                        afbeeldingLink:
+                                            verkeersbordList[position]
+                                                .afbeeldingLink)));
+                          }),
+                      Text(verkeersbordList[position].naam)
+                    ],
+                  ));
             }
           }()));
         });
