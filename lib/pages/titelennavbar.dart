@@ -29,7 +29,6 @@ class _MyStatefulWidgetState extends State<MyNavbar> {
 
   @override
   Widget build(BuildContext context) {
-    mainAxisSize:
     MainAxisSize.min;
     return Scaffold(
       appBar: AppBar(

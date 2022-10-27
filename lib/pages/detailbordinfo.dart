@@ -26,15 +26,18 @@ class DetailPage extends StatelessWidget {
           width: 2000,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Flexible(
                   child: Image(
                 image: avatarAsset,
-                width: 100.0,
+                width: 300.0,
               )),
               Flexible(
-                child: Text(beschrijving),
+                child: Text(
+                  beschrijving,
+                  style: TextStyle(fontSize: 30),
+                  textAlign: TextAlign.center,
+                ),
               )
             ],
           )),
