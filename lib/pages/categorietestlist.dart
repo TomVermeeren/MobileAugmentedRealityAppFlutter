@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import '../models/verkeersbord.dart';
 import '../models/categorie.dart';
 import '../apis/verkeersbord_api.dart';
-import 'leergevarenbord.dart';
+import 'routetotestlist.dart';
 
-class CategorieListPage extends StatefulWidget {
-  const CategorieListPage({Key? key}) : super(key: key);
+class CategorieTestListPage extends StatefulWidget {
+  const CategorieTestListPage({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _CategorieListPageState();
+  State<StatefulWidget> createState() => _CategorieTestListPageState();
 }
 
-class _CategorieListPageState extends State {
+class _CategorieTestListPageState extends State {
   List<Categorie> categorieList = [];
   int count = 0;
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.all(5.0),
-        child: categorieListItems(),
+        child: categorieTestListItems(),
       ),
     );
   }
@@ -39,7 +37,7 @@ class _CategorieListPageState extends State {
     });
   }
 
-  ListView categorieListItems() {
+  ListView categorieTestListItems() {
     return ListView.builder(
         itemCount: count,
         itemBuilder: (BuildContext context, int position) {

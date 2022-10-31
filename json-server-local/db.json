@@ -62,6 +62,7 @@
         "beschrijving": "Dit verkeersbord geeft aan dat je het einde van de voorrangsweg naderd. Dit verkeersbord wordt geplaatst bij het naderen van het kruispunt waar de voorrangsweg dit karakter verliest, behalve aan de uitrit van een autosnelweg waar het niet geplaatst mag worden.",
         "afbeeldingLink": "assets/Verkeersbord_B2.png",
         "categorie": "Voorrangsborden"
+
       },
       {
         "id": 6,
@@ -69,6 +70,7 @@
         "beschrijving": "Dit verkeersbord plaats je in de onmiddellijke nabijheid van een plaats waar een bestuurder voorrang moet verlenen.",
         "afbeeldingLink": "assets/Verkeersbord_B6.png",
         "categorie": "Voorrangsborden"
+
       },
       {
         "id": 7,

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_verkeersborden_tom_jan/pages/categorielist.dart';
-import 'package:flutter_verkeersborden_tom_jan/pages/verkeersbordlist.dart';
-import 'leermenu.dart';
-import 'leeroverzicht.dart';
+import 'package:flutter_verkeersborden_tom_jan/pages/categorieleerlist.dart';
+import 'package:flutter_verkeersborden_tom_jan/pages/categorietestlist.dart';
 import 'scan.dart';
 
 class MyNavbar extends StatefulWidget {
@@ -16,9 +14,9 @@ class _MyStatefulWidgetState extends State<MyNavbar> {
   int _selectedIndex = 0;
 
   static const List<Widget> _widgetOptions = <Widget>[
-    MyCard(),
+    CategorieTestListPage(),
     HomePage(),
-    CategorieListPage()
+    CategorieLeerListPage()
   ];
 
   void _onItemTapped(int index) {
