@@ -1,6 +1,8 @@
 import 'package:camera/camera.dart';
+import 'package:augmented_reality_plugin_wikitude/wikitude_plugin.dart';
+import 'package:augmented_reality_plugin_wikitude/wikitude_response.dart';
 import 'package:flutter/material.dart';
-import 'camera.dart';
+import 'package:flutter_verkeersborden_tom_jan/pages/arborden.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -10,24 +12,52 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<String> features = ["image_tracking"];
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-        width: 500,
-        height: 250,
-        child: Scaffold(
-          body: SafeArea(
-            child: Center(
-                child: ElevatedButton(
-              onPressed: () async {
-                await availableCameras().then((value) => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => CameraPage(cameras: value))));
-              },
-              child: const Text("Take a Picture"),
-            )),
-          ),
-        ));
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("My Flutter AR App"),
+      ),
+      body: Center(
+        child: ElevatedButton(
+            onPressed: navigateToDinos, child: const Text("Scan de dino's!")),
+      ),
+    );
+  }
+
+  void navigateToDinos() {
+    debugPrint("Wij gaan naar dino's");
+
+    checkDeviceCompatibility().then((value) => {
+          if (value.success)
+            {
+              requestARPermissions().then((value) => {
+                    if (value.success)
+                      {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ArBordenPage()),
+                        )
+                      }
+                    else
+                      {
+                        debugPrint("AR permissions denied"),
+                        debugPrint(value.message)
+                      }
+                  })
+            }
+          else
+            {debugPrint("Device incompatible"), debugPrint(value.message)}
+        });
+  }
+
+  Future<WikitudeResponse> checkDeviceCompatibility() async {
+    return await WikitudePlugin.isDeviceSupporting(features);
+  }
+
+  Future<WikitudeResponse> requestARPermissions() async {
+    return await WikitudePlugin.requestARPermissions(features);
   }
 }
