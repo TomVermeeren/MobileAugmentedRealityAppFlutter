@@ -1,4 +1,3 @@
-import 'package:camera/camera.dart';
 import 'package:augmented_reality_plugin_wikitude/wikitude_plugin.dart';
 import 'package:augmented_reality_plugin_wikitude/wikitude_response.dart';
 import 'package:flutter/material.dart';
@@ -16,19 +15,15 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("My Flutter AR App"),
-      ),
       body: Center(
         child: ElevatedButton(
-            onPressed: navigateToDinos, child: const Text("Scan de dino's!")),
+            onPressed: navigateToBorden,
+            child: const Text("Scan een verkeersbord!")),
       ),
     );
   }
 
-  void navigateToDinos() {
-    debugPrint("Wij gaan naar dino's");
-
+  void navigateToBorden() {
     checkDeviceCompatibility().then((value) => {
           if (value.success)
             {

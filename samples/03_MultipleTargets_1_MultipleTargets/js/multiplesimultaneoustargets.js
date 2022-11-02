@@ -1,19 +1,5 @@
 var World = {
     loaded: false,
-    dinoSettings: {
-        diplodocus: {
-            scale: 0.4
-        },
-        spinosaurus: {
-            scale: 0.004
-        },
-        triceratops: {
-            scale: 0.4
-        },
-        tyrannosaurus: {
-            scale: 0.4
-        }
-    },
 
     init: function initFn() {
         this.createOverlays();
@@ -27,7 +13,7 @@ var World = {
             Each target in the target collection is identified by its target name. By using this
             target name, it is possible to create an AR.ImageTrackable for every target in the target collection.
          */
-        this.targetCollectionResource = new AR.TargetCollectionResource("assets/dinosaurs.wtc", {
+        this.targetCollectionResource = new AR.TargetCollectionResource("assets/tracker.wtc", {
             onError: World.onError
         });
 
@@ -57,10 +43,6 @@ var World = {
         /*
             Pre-load models such that they are available in cache to avoid any slowdown upon first recognition.
          */
-        new AR.Model("assets/models/diplodocus.wt3");
-        new AR.Model("assets/models/spinosaurus.wt3");
-        new AR.Model("assets/models/triceratops.wt3");
-        new AR.Model("assets/models/tyrannosaurus.wt3");
 
         /*
             Note that this time we use "*" as target name. That means that the AR.ImageTrackable will respond to
@@ -68,26 +50,19 @@ var World = {
             matchings. E.g. 'target_?' to reference 'target_1' through 'target_9' or 'target*' for any targets
             names that start with 'target'.
          */
-        this.dinoTrackable = new AR.ImageTrackable(this.tracker, "*", {
-            onImageRecognized: function(target) {
-                /*
-                    Create 3D model based on which target was recognized.
-                 */
-                var model = new AR.Model("assets/models/" + target.name + ".wt3", {
-                    scale: World.dinoSettings[target.name].scale,
-                    rotate: {
-                        z: 180
-                    },
-                    onError: World.onError
-                });
+        // Create overlay for page one
+            var imgOne = new AR.ImageResource("assets/Verkeersbord_B1.png");
+            var overlayOne = new AR.ImageDrawable(imgOne, 1, {
+                translate: {
+                    x: -0.15,
+                }
+            });
 
-                /* Adds the model as augmentation for the currently recognized target. */
-                this.addImageTargetCamDrawables(target, model);
-
-                World.hideInfoBar();
-            },
-            onError: World.onError
-        });
+            var pageOne = new AR.ImageTrackable(this.tracker, "*", {
+                drawables: {
+                    cam: overlayOne
+                }
+            });
     },
 
     onError: function onErrorFn(error) {
