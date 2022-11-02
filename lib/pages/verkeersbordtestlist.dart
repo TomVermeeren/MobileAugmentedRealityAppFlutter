@@ -52,13 +52,16 @@ class _VerkeersbordTestListPageState extends State {
     } else {
       max = verkeersbordList.length - 1;
     }
-    var intValue1 = Random().nextInt(max);
-    var intValue2 = Random().nextInt(max);
-    var intValue3 = Random().nextInt(max);
+    var intValue1;
+    var intValue2;
+    var intValue3;
 
     return ListView.builder(
         itemCount: count,
         itemBuilder: (BuildContext context, int position) {
+          intValue1 = Random().nextInt(max);
+          intValue2 = Random().nextInt(max);
+          intValue3 = Random().nextInt(max);
           // for (int value in intValues) {
           //   value = Random().nextInt(verkeersbordList.length - 1);
           // }
@@ -76,14 +79,9 @@ class _VerkeersbordTestListPageState extends State {
                           context,
                           new MaterialPageRoute(
                               builder: (context) => DetailPage(
-                                  titel: verkeersbordList[position].naam,
-                                  fout1: verkeersbordList[intValue1].naam,
-                                  fout2: verkeersbordList[intValue2].naam,
-                                  fout3: verkeersbordList[intValue3].naam,
-                                  beschrijving:
-                                      verkeersbordList[position].beschrijving,
-                                  afbeeldingLink: verkeersbordList[position]
-                                      .afbeeldingLink)));
+                                    position: position,
+                                    list: verkeersbordList,
+                                  )));
                     },
                     child: Column(
                       children: [

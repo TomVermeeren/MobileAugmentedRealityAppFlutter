@@ -4,13 +4,11 @@ import 'dart:convert';
 import '../models/verkeersbord.dart';
 
 class VerkeersbordApi {
-  static String server = 'rich-cups-refuse-94-227-20-155.loca.lt';
+  static String server = 'four-olives-judge-81-246-184-163.loca.lt';
 
   static Future<List<Categorie>> fetchCategorieen() async {
     var url = Uri.https(server, '/categorieen');
-
     final response = await http.get(url);
-
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
       return jsonResponse
