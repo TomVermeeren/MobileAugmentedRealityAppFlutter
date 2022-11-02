@@ -13,7 +13,7 @@ class _ArBordenPageState extends State<ArBordenPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Dino's"),
+        title: const Text("Verkeersborden"),
       ),
       body: const Center(
           // Here we load the Widget with the AR Dino experience
