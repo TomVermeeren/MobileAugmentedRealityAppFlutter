@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_verkeersborden_tom_jan/pages/verkeersbordtestlist.dart';
 
-class MyRoute extends StatelessWidget {
+class RouteToTestList extends StatelessWidget {
   final String titel;
-  MyRoute({Key? key, required this.titel}) : super(key: key) {}
+  RouteToTestList({Key? key, required this.titel}) : super(key: key) {}
 
   @override
   Widget build(BuildContext context) {

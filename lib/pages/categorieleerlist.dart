@@ -63,7 +63,7 @@ class _CategorieListPageState extends State {
                               Navigator.push(
                                 context,
                                 new MaterialPageRoute(
-                                    builder: (context) => MyRoute(
+                                    builder: (context) => RouteToLeerList(
                                         titel: categorieList[position].naam)),
                               );
                             },
@@ -87,7 +87,7 @@ class _CategorieListPageState extends State {
                                 Navigator.push(
                                   context,
                                   new MaterialPageRoute(
-                                      builder: (context) => MyRoute(
+                                      builder: (context) => RouteToLeerList(
                                           titel: categorieList[position + 1]
                                               .naam)),
                                 );
@@ -116,7 +116,7 @@ class _CategorieListPageState extends State {
                                   Navigator.push(
                                     context,
                                     new MaterialPageRoute(
-                                        builder: (context) => MyRoute(
+                                        builder: (context) => RouteToLeerList(
                                             titel:
                                                 categorieList[position].naam)),
                                   );
