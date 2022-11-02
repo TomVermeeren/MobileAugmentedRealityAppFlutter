@@ -1,7 +1,4 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_verkeersborden_tom_jan/pages/verkeersbordleerlist.dart';
 
 class DetailPage extends StatelessWidget {
   final String titel;
@@ -25,7 +22,7 @@ class DetailPage extends StatelessWidget {
     AssetImage avatarAsset = AssetImage(afbeeldingLink);
     return Scaffold(
       appBar: AppBar(
-        title: Text(titel),
+        title: const Text("Test"),
       ),
       body: Container(
           margin: const EdgeInsets.all(20.0),
@@ -33,11 +30,9 @@ class DetailPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text(
+              const Text(
                 "Wat betekent dit bord?",
-                key: key,
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
               ),
               Flexible(
                   child: Image(
