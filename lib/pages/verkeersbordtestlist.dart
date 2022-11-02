@@ -38,10 +38,12 @@ class _VerkeersbordTestListPageState extends State {
 
   void _getVerkeersborden() {
     VerkeersbordApi.fetchVerkeerborden().then((result) {
-      setState(() {
-        verkeersbordList = result;
-        count = result.length;
-      });
+      if (mounted) {
+        setState(() {
+          verkeersbordList = result;
+          count = result.length;
+        });
+      }
     });
   }
 

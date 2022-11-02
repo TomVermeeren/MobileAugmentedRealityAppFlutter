@@ -58,9 +58,26 @@ var World = {
                 }
             });
 
+
+            var videoWidget = new AR.HtmlDrawable({
+                uri: "assets/test.html"
+            }, 5, {
+                viewportWidth: 320,
+                viewportHeight: 100,
+                backgroundColor: "#FFFFFF",
+                translate: {
+                    x:0.36,
+                    y: 0.5
+                },
+                clickThroughEnabled: true,
+                onDocumentLocationChanged: function onDocumentLocationChangedFn(uri) {
+                    AR.context.openInBrowser(uri);
+                }
+            });
+
             var pageOne = new AR.ImageTrackable(this.tracker, "*", {
                 drawables: {
-                    cam: overlayOne
+                    cam: [overlayOne, videoWidget]
                 }
             });
     },
