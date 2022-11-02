@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/verkeersbord.dart';
 import '../apis/verkeersbord_api.dart';
 import 'verkeersbordtest.dart';
+import 'dart:math';
 
 class VerkeersbordenTestListPage extends StatefulWidget {
   final String titel;
@@ -45,9 +46,22 @@ class _VerkeersbordTestListPageState extends State {
   }
 
   ListView verkeersbordListItems() {
+    var max = 0;
+    if (verkeersbordList.length == 0) {
+      max = 1;
+    } else {
+      max = verkeersbordList.length - 1;
+    }
+    var intValue1 = Random().nextInt(max);
+    var intValue2 = Random().nextInt(max);
+    var intValue3 = Random().nextInt(max);
+
     return ListView.builder(
         itemCount: count,
         itemBuilder: (BuildContext context, int position) {
+          // for (int value in intValues) {
+          //   value = Random().nextInt(verkeersbordList.length - 1);
+          // }
           AssetImage afbeeldinglink =
               AssetImage(verkeersbordList[position].afbeeldingLink);
           return Container(
@@ -63,9 +77,9 @@ class _VerkeersbordTestListPageState extends State {
                           new MaterialPageRoute(
                               builder: (context) => DetailPage(
                                   titel: verkeersbordList[position].naam,
-                                  fout1: verkeersbordList[position + 1].naam,
-                                  fout2: verkeersbordList[position + 2].naam,
-                                  fout3: verkeersbordList[position + 3].naam,
+                                  fout1: verkeersbordList[intValue1].naam,
+                                  fout2: verkeersbordList[intValue2].naam,
+                                  fout3: verkeersbordList[intValue3].naam,
                                   beschrijving:
                                       verkeersbordList[position].beschrijving,
                                   afbeeldingLink: verkeersbordList[position]
@@ -77,7 +91,6 @@ class _VerkeersbordTestListPageState extends State {
                           image: afbeeldinglink,
                           height: 150.0,
                         ),
-                        Text(verkeersbordList[position].naam)
                       ],
                     )),
               );
