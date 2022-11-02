@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_verkeersborden_tom_jan/pages/verkeersbordlist.dart';
+import 'package:flutter_verkeersborden_tom_jan/pages/verkeersbordleerlist.dart';
 
 class MyRoute extends StatelessWidget {
   final String titel;
@@ -16,7 +16,7 @@ class MyRoute extends StatelessWidget {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: VerkeersbordenListPage(titel: this.titel),
+          child: VerkeersbordenLeerListPage(titel: this.titel),
         ),
       ),
     );

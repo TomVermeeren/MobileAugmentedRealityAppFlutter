@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_verkeersborden_tom_jan/pages/detailbordinfo.dart';
 import '../models/verkeersbord.dart';
 import '../apis/verkeersbord_api.dart';
-import 'leergevarenbord.dart';
+import 'verkeersbordtest.dart';
 
-class VerkeersbordenListPage extends StatefulWidget {
+class VerkeersbordenTestListPage extends StatefulWidget {
   final String titel;
-  const VerkeersbordenListPage({Key? key, required this.titel})
+  const VerkeersbordenTestListPage({Key? key, required this.titel})
       : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _VerkeersbordListPageState(titel);
+  State<StatefulWidget> createState() => _VerkeersbordTestListPageState(titel);
 }
 
-class _VerkeersbordListPageState extends State {
+class _VerkeersbordTestListPageState extends State {
   String titel;
 
-  _VerkeersbordListPageState(this.titel);
+  _VerkeersbordTestListPageState(this.titel);
 
   List<Verkeersbord> verkeersbordList = [];
   int count = 0;
@@ -64,6 +63,9 @@ class _VerkeersbordListPageState extends State {
                           new MaterialPageRoute(
                               builder: (context) => DetailPage(
                                   titel: verkeersbordList[position].naam,
+                                  fout1: verkeersbordList[position + 1].naam,
+                                  fout2: verkeersbordList[position + 2].naam,
+                                  fout3: verkeersbordList[position + 3].naam,
                                   beschrijving:
                                       verkeersbordList[position].beschrijving,
                                   afbeeldingLink: verkeersbordList[position]

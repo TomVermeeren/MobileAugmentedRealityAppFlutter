@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_verkeersborden_tom_jan/pages/verkeersbordlist.dart';
+import 'package:flutter_verkeersborden_tom_jan/pages/verkeersbordleerlist.dart';
 
 class DetailPage extends StatelessWidget {
   final String titel;
