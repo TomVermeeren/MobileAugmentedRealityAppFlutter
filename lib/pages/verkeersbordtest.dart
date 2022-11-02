@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_verkeersborden_tom_jan/pages/titelennavbar.dart';
 import '../models/verkeersbord.dart';
 import 'dart:math';
 import 'routetotestlist.dart';
@@ -22,6 +21,8 @@ class _DetailPageState extends State {
   String message = "";
   int nextposition = 0;
   String alertButtonText = "";
+  String foutbericht = "";
+  Random random = new Random();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,6 +39,12 @@ class _DetailPageState extends State {
     _setMessage("Default", alertButtonText);
   }
 
+  void _setFoutbericht(String foutbericht) {
+    setState(() {
+      this.foutbericht = foutbericht;
+    });
+  }
+
   void _setMessage(String message, String alertButtonText) {
     setState(() {
       this.message = message;
@@ -49,37 +56,39 @@ class _DetailPageState extends State {
   void answer(bool antwoordJuist) {
     nextposition = position;
     String currentCategorie = list[position].categorie;
-    alertButtonText = "Volgende vraag";
+
     if (antwoordJuist) {
       message = "Correct!";
+      alertButtonText = "Volgende vraag";
+
+      while ((nextposition == position ||
+              list[nextposition].categorie != currentCategorie) &&
+          nextposition < 21) {
+        nextposition += 1;
+        if (nextposition == 21) {
+          alertButtonText = "Categorie menu";
+          message = "Profitiat, deze categorie is klaar!";
+          _setMessage(message, alertButtonText);
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => _buildPopupDialog(context),
+          );
+        }
+        if (nextposition == 21) {
+          nextposition = 0;
+        }
+      }
+
+      _setMessage(message, alertButtonText);
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) => _buildPopupDialog(context),
+      );
     } else {
-      message = "Fout!";
+      foutbericht = "Fout! Probeer opnieuw.";
+      _setFoutbericht(foutbericht);
     }
-
-    while ((nextposition == position ||
-            list[nextposition].categorie != currentCategorie) &&
-        nextposition < 21) {
-      nextposition += 1;
-      if (nextposition == 21) {
-        alertButtonText = "Categorie menu";
-        message = "Profitiat, deze categorie is klaar!";
-        _setMessage(message, alertButtonText);
-        showDialog(
-          context: context,
-          builder: (BuildContext context) => _buildPopupDialog(context),
-        );
-      }
-      if (nextposition == 21) {
-        nextposition = 0;
-      }
-    }
-
-    _setMessage(message, alertButtonText);
-
-    showDialog(
-      context: context,
-      builder: (BuildContext context) => _buildPopupDialog(context),
-    );
   }
 
   Scaffold toonAntwoorden() {
@@ -91,9 +100,15 @@ class _DetailPageState extends State {
     } else {
       max = list.length - 1;
     }
-    var intValue1 = Random().nextInt(max);
-    var intValue2 = Random().nextInt(max);
-    var intValue3 = Random().nextInt(max);
+    // Dit legt de posities van de foute antwoorden vast, deze mogen niet gelijk zijn aan elkaar of aan het juiste antwoord
+    List<int> values = [];
+    int nextvalue = 0;
+    for (int i = 0; i < 3; i++) {
+      do {
+        nextvalue = random.nextInt(max);
+      } while (values.contains(nextvalue) || nextvalue == position);
+      values.add(nextvalue);
+    }
 
     AssetImage avatarAsset = AssetImage(list[position].afbeeldingLink);
     return Scaffold(
@@ -135,14 +150,9 @@ class _DetailPageState extends State {
                         foregroundColor: Colors.white,
                         backgroundColor: Colors.lightBlue),
                     onPressed: () {
-                      _setMessage("Fout!", alertButtonText);
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) =>
-                            _buildPopupDialog(context),
-                      );
+                      answer(false);
                     },
-                    child: Text(list[intValue1].naam),
+                    child: Text(list[values[0]].naam),
                   ),
                   TextButton(
                     style: TextButton.styleFrom(
@@ -150,14 +160,9 @@ class _DetailPageState extends State {
                         foregroundColor: Colors.white,
                         backgroundColor: Colors.lightBlue),
                     onPressed: () {
-                      _setMessage("Fout!", alertButtonText);
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) =>
-                            _buildPopupDialog(context),
-                      );
+                      answer(false);
                     },
-                    child: Text(list[intValue2].naam),
+                    child: Text(list[values[1]].naam),
                   ),
                   TextButton(
                     style: TextButton.styleFrom(
@@ -165,15 +170,11 @@ class _DetailPageState extends State {
                         foregroundColor: Colors.white,
                         backgroundColor: Colors.lightBlue),
                     onPressed: () {
-                      _setMessage("Fout!", alertButtonText);
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) =>
-                            _buildPopupDialog(context),
-                      );
+                      answer(false);
                     },
-                    child: Text(list[intValue3].naam),
+                    child: Text(list[values[2]].naam),
                   ),
+                  Text(foutbericht)
                 ],
               )
             ],
