@@ -30,10 +30,12 @@ class _CategorieTestListPageState extends State {
 
   void _getCategorieen() {
     VerkeersbordApi.fetchCategorieen().then((result) {
-      setState(() {
-        categorieList = result;
-        count = result.length;
-      });
+      if (mounted) {
+        setState(() {
+          categorieList = result;
+          count = result.length;
+        });
+      }
     });
   }
 

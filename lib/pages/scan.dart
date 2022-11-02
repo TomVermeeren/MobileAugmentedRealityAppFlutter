@@ -1,3 +1,4 @@
+import 'package:camera/camera.dart';
 import 'package:augmented_reality_plugin_wikitude/wikitude_plugin.dart';
 import 'package:augmented_reality_plugin_wikitude/wikitude_response.dart';
 import 'package:flutter/material.dart';
@@ -17,13 +18,15 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: Center(
         child: ElevatedButton(
-            onPressed: navigateToBorden,
-            child: const Text("Scan een verkeersbord!")),
+            onPressed: navigateToDinos,
+            child: const Text("Scan verkeersborden!")),
       ),
     );
   }
 
-  void navigateToBorden() {
+  void navigateToDinos() {
+    debugPrint("Wij gaan naar dino's");
+
     checkDeviceCompatibility().then((value) => {
           if (value.success)
             {
