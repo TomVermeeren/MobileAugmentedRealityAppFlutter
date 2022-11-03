@@ -4,6 +4,7 @@ import 'dart:convert';
 import '../models/verkeersbord.dart';
 
 class VerkeersbordApi {
+
   static String server = 'empty-cameras-hang-94-227-20-155.loca.lt';
 
   static Future<List<Categorie>> fetchCategorieen() async {
@@ -16,6 +17,24 @@ class VerkeersbordApi {
           .toList();
     } else {
       throw Exception('Categorieen konden niet geladen worden.');
+    }
+  }
+
+  static Future<Verkeersbord> updateVerkeersbord(
+      int id, Verkeersbord verkeersbord) async {
+    var url = Uri.https(server, '/verkeersborden/$id');
+
+    final http.Response response = await http.put(
+      url,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(verkeersbord),
+    );
+    if (response.statusCode == 200) {
+      return Verkeersbord.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Niet gelukt om verkeersbord te updaten');
     }
   }
 
