@@ -23,13 +23,7 @@ class _DetailPageState extends State {
   int nextposition = 0;
   String alertButtonText = "";
   String foutbericht = "";
-  Verkeersbord verkeersbord = new Verkeersbord(
-      id: 20,
-      naam: "naam",
-      beschrijving: "beschrijving",
-      afbeeldingLink: "afbeeldingLink",
-      categorie: "categorie",
-      gehaald: "gehaald");
+
   int punten = 0;
   Random random = new Random();
   @override
@@ -57,7 +51,13 @@ class _DetailPageState extends State {
   void _setMessage(String message, String alertButtonText) {
     setState(() {
       this.message = message;
-      this.verkeersbord = verkeersbord;
+      VerkeersbordApi.fetchVerkeerborden().then((result) {
+        if (mounted) {
+          setState(() {
+            list = result;
+          });
+        }
+      });
       this.alertButtonText = alertButtonText;
     });
   }
@@ -71,12 +71,14 @@ class _DetailPageState extends State {
       message = "Correct!";
       alertButtonText = "Volgende vraag";
       list[position].gehaald = "1";
-      VerkeersbordApi.updateVerkeersbord(position, list[position]);
+      VerkeersbordApi.updateVerkeersbord(list[position].id, list[position])
+          .then((result) {});
+
       while ((nextposition == position ||
               list[nextposition].categorie != currentCategorie) &&
-          nextposition < 21) {
+          nextposition < list.length) {
         nextposition += 1;
-        if (nextposition == 21) {
+        if (nextposition == list.length) {
           alertButtonText = "Categorie menu";
           message = "Profitiat, deze categorie is klaar!";
           _setMessage(message, alertButtonText);
@@ -85,7 +87,7 @@ class _DetailPageState extends State {
             builder: (BuildContext context) => _buildPopupDialog(context),
           );
         }
-        if (nextposition == 21) {
+        if (nextposition == list.length) {
           nextposition = 0;
         }
       }
@@ -185,7 +187,7 @@ class _DetailPageState extends State {
                     },
                     child: Text(list[values[2]].naam),
                   ),
-                  Text(foutbericht + punten.toString())
+                  Text(foutbericht + list[position].gehaald)
                 ],
               )
             ],
