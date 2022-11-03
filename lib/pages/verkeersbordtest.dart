@@ -29,7 +29,8 @@ class _DetailPageState extends State {
       beschrijving: "beschrijving",
       afbeeldingLink: "afbeeldingLink",
       categorie: "categorie",
-      gehaald: "gehaald");
+      gehaald: "gehaald",
+      videoLink: 1);
   int punten = 0;
   Random random = new Random();
   @override
