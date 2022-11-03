@@ -58,27 +58,45 @@ var World = {
                 }
             });
 
-
-            var videoWidget = new AR.HtmlDrawable({
-                uri: "assets/test.html"
-            }, 5, {
-                viewportWidth: 320,
-                viewportHeight: 100,
-                backgroundColor: "#FFFFFF",
+            var video = new AR.VideoDrawable("assets/videotest.mp4", 0.5, {
                 translate: {
-                    x:0.36,
-                    y: 0.5
-                },
-                clickThroughEnabled: true,
-                onDocumentLocationChanged: function onDocumentLocationChangedFn(uri) {
-                    AR.context.openInBrowser(uri);
-                }
-            });
+                    x: 0.2,
+                    y: 0.2
+                }});
+
+            // var videoWidget = new AR.HtmlDrawable({
+            //     uri: "assets/test.html"
+            // }, 5, {
+            //     viewportWidth: 320,
+            //     viewportHeight: 100,
+            //     backgroundColor: "#FFFFFF",
+            //     translate: {
+            //         x:0.36,
+            //         y: 0.5
+            //     },
+            //     clickThroughEnabled: true,
+            //     onDocumentLocationChanged: function onDocumentLocationChangedFn(uri) {
+            //         AR.context.openInBrowser(uri);
+            //     }
+            // });
 
             var pageOne = new AR.ImageTrackable(this.tracker, "*", {
                 drawables: {
-                    cam: [overlayOne, videoWidget]
-                }
+                    cam: [overlayOne, video]
+                },
+                onImageRecognized: function onImageRecognizedFn() {
+                    if (this.hasVideoStarted) {
+                        video.resume();
+                    }
+                    else {
+                        this.hasVideoStarted = true;
+                        video.play(-1);
+                    }
+                    World.removeLoadingBar();                
+                },
+                onImageLost: function onImageLostFn() {
+                    video.pause();
+                },
             });
     },
 
