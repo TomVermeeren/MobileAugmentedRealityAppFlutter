@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_verkeersborden_tom_jan/apis/verkeersbord_api.dart';
 import '../models/verkeersbord.dart';
 import 'dart:math';
 import 'routetotestlist.dart';
@@ -22,6 +23,14 @@ class _DetailPageState extends State {
   int nextposition = 0;
   String alertButtonText = "";
   String foutbericht = "";
+  Verkeersbord verkeersbord = new Verkeersbord(
+      id: 20,
+      naam: "naam",
+      beschrijving: "beschrijving",
+      afbeeldingLink: "afbeeldingLink",
+      categorie: "categorie",
+      gehaald: "gehaald");
+  int punten = 0;
   Random random = new Random();
   @override
   Widget build(BuildContext context) {
@@ -48,6 +57,7 @@ class _DetailPageState extends State {
   void _setMessage(String message, String alertButtonText) {
     setState(() {
       this.message = message;
+      this.verkeersbord = verkeersbord;
       this.alertButtonText = alertButtonText;
     });
   }
@@ -60,7 +70,8 @@ class _DetailPageState extends State {
     if (antwoordJuist) {
       message = "Correct!";
       alertButtonText = "Volgende vraag";
-
+      list[position].gehaald = "1";
+      VerkeersbordApi.updateVerkeersbord(position, list[position]);
       while ((nextposition == position ||
               list[nextposition].categorie != currentCategorie) &&
           nextposition < 21) {
@@ -174,7 +185,7 @@ class _DetailPageState extends State {
                     },
                     child: Text(list[values[2]].naam),
                   ),
-                  Text(foutbericht)
+                  Text(foutbericht + punten.toString())
                 ],
               )
             ],
