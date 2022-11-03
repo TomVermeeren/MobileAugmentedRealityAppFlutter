@@ -2,9 +2,6 @@ var World = {
     loaded: false,
     videoLink: "",
 
-    init: function initFn() {
-        this.createOverlays();
-    },
 
     newData: function newDataFn(videoId) {
         switch(videoId){
@@ -127,5 +124,3 @@ var World = {
     }
     
 };
-
-World.init();

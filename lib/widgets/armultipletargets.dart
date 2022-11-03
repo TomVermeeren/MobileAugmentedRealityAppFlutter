@@ -75,6 +75,7 @@ class _ArMultipleTargetsWidgetState extends State<ArMultipleTargetsWidget>
   Future<void> onLoadSuccess() async {
     debugPrint("Successfully loaded Architect World");
     architectWidget.callJavascript('World.newData($videolink)');
+    architectWidget.callJavascript('World.createOverlays()');
   }
 
   Future<void> onLoadFailed(String error) async {
