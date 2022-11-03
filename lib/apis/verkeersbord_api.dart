@@ -8,9 +8,7 @@ class VerkeersbordApi {
 
   static Future<List<Categorie>> fetchCategorieen() async {
     var url = Uri.https(server, '/categorieen');
-
     final response = await http.get(url);
-
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
       return jsonResponse
