@@ -1,8 +1,34 @@
 var World = {
     loaded: false,
+    videoLink: "",
 
     init: function initFn() {
         this.createOverlays();
+    },
+
+    newData: function newDataFn(videoId) {
+        switch(videoId){
+            case 1:
+                console.log("de videoId is " + videoId)
+                World.videoLink = "assets/aanwijzingsbordenvideo.mp4"
+                break;
+            case 2:
+                World.videoLink = "assets/aanwijzingsbordenvideo.mp4"
+                break;
+            case 3:
+                World.videoLink = "assets/aanwijzingsbordenvideo.mp4"
+                break;
+            case 4:
+                World.videoLink = "assets/aanwijzingsbordenvideo.mp4"
+                break;
+            case 5:
+                World.videoLink = "assets/aanwijzingsbordenvideo.mp4"
+                break;
+            default:
+                break;
+        }
+        
+        console.log("de videoLink is " + World.videoLink)
     },
 
     createOverlays: function createOverlaysFn() {
@@ -51,6 +77,8 @@ var World = {
             names that start with 'target'.
          */
         // Create overlay for page one
+
+
             var imgOne = new AR.ImageResource("assets/Verkeersbord_B1.png");
             var overlayOne = new AR.ImageDrawable(imgOne, 1, {
                 translate: {
@@ -58,27 +86,12 @@ var World = {
                 }
             });
 
-            var video = new AR.VideoDrawable("assets/videotest.mp4", 0.5, {
+            var video = new AR.VideoDrawable((World.videoLink).toString(), 0.5, {
                 translate: {
                     x: 0.2,
                     y: 0.2
                 }});
 
-            // var videoWidget = new AR.HtmlDrawable({
-            //     uri: "assets/test.html"
-            // }, 5, {
-            //     viewportWidth: 320,
-            //     viewportHeight: 100,
-            //     backgroundColor: "#FFFFFF",
-            //     translate: {
-            //         x:0.36,
-            //         y: 0.5
-            //     },
-            //     clickThroughEnabled: true,
-            //     onDocumentLocationChanged: function onDocumentLocationChangedFn(uri) {
-            //         AR.context.openInBrowser(uri);
-            //     }
-            // });
 
             var pageOne = new AR.ImageTrackable(this.tracker, "*", {
                 drawables: {
@@ -112,6 +125,7 @@ var World = {
         document.getElementById("infoBox").style.display = "table";
         document.getElementById("loadingMessage").style.display = "none";
     }
+    
 };
 
 World.init();
