@@ -23,14 +23,7 @@ class _DetailPageState extends State {
   int nextposition = 0;
   String alertButtonText = "";
   String foutbericht = "";
-  Verkeersbord verkeersbord = new Verkeersbord(
-      id: 20,
-      naam: "naam",
-      beschrijving: "beschrijving",
-      afbeeldingLink: "afbeeldingLink",
-      categorie: "categorie",
-      gehaald: "gehaald",
-      videoLink: 1);
+  List<int> values = [];
   int punten = 0;
   Random random = new Random();
   @override
@@ -47,6 +40,27 @@ class _DetailPageState extends State {
   void initState() {
     super.initState();
     _setMessage("Default", alertButtonText);
+    punten = 0;
+    for (Verkeersbord bord in list) {
+      if (bord.gehaald == "1") {
+        punten++;
+      }
+    }
+    // Hier stellen we de posities van de foute antwoorden vast, deze mogen niet gelijk zijn aan elkaar of aan het juiste antwoord
+    var max = 0;
+
+    if (list.length == 0) {
+      max = 1;
+    } else {
+      max = list.length - 1;
+    }
+    int nextvalue = 0;
+    for (int i = 0; i < 3; i++) {
+      do {
+        nextvalue = random.nextInt(max);
+      } while (values.contains(nextvalue) || nextvalue == position);
+      values.add(nextvalue);
+    }
   }
 
   void _setFoutbericht(String foutbericht) {
@@ -65,6 +79,12 @@ class _DetailPageState extends State {
           });
         }
       });
+      punten = 0;
+      for (Verkeersbord bord in list) {
+        if (bord.gehaald == "1") {
+          punten++;
+        }
+      }
       this.alertButtonText = alertButtonText;
     });
   }
@@ -78,8 +98,6 @@ class _DetailPageState extends State {
       message = "Correct!";
       alertButtonText = "Volgende vraag";
       list[position].gehaald = "1";
-      VerkeersbordApi.updateVerkeersbord(list[position].id, list[position])
-          .then((result) {});
 
       while ((nextposition == position ||
               list[nextposition].categorie != currentCategorie) &&
@@ -106,29 +124,19 @@ class _DetailPageState extends State {
         builder: (BuildContext context) => _buildPopupDialog(context),
       );
     } else {
+      list[position].gehaald = "0";
       foutbericht = "Fout! Probeer opnieuw.";
       _setFoutbericht(foutbericht);
+      _setMessage(message, alertButtonText);
     }
+    VerkeersbordApi.updateVerkeersbord(list[position].id, list[position])
+        .then((result) {});
   }
 
   Scaffold toonAntwoorden() {
     // Positie bepalen van volgend verkeersbord binnen deze categorie
-    var max = 0;
 
-    if (list.length == 0) {
-      max = 1;
-    } else {
-      max = list.length - 1;
-    }
     // Dit legt de posities van de foute antwoorden vast, deze mogen niet gelijk zijn aan elkaar of aan het juiste antwoord
-    List<int> values = [];
-    int nextvalue = 0;
-    for (int i = 0; i < 3; i++) {
-      do {
-        nextvalue = random.nextInt(max);
-      } while (values.contains(nextvalue) || nextvalue == position);
-      values.add(nextvalue);
-    }
 
     AssetImage avatarAsset = AssetImage(list[position].afbeeldingLink);
     return Scaffold(
@@ -194,7 +202,7 @@ class _DetailPageState extends State {
                     },
                     child: Text(list[values[2]].naam),
                   ),
-                  Text(foutbericht + list[position].gehaald)
+                  Text(foutbericht + punten.toString())
                 ],
               )
             ],
@@ -224,6 +232,7 @@ class _DetailPageState extends State {
               Navigator.push(context,
                   new MaterialPageRoute(builder: (context) => RouteToHome()));
             } else {
+              _setMessage(message, alertButtonText);
               Navigator.push(
                   context,
                   new MaterialPageRoute(
