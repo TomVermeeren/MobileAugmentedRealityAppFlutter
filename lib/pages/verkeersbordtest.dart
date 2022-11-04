@@ -20,6 +20,7 @@ class _DetailPageState extends State {
 
   _DetailPageState(this.position, this.list);
 
+  // Hier declareer ik alle variabelen die ik in verschillende functies gebruik
   bool shouldDisplay = false;
   String bericht = "";
   int nextposition = 0;
@@ -28,8 +29,7 @@ class _DetailPageState extends State {
   MaterialPageRoute route = MaterialPageRoute(
       builder: (context) => DetailPage(position: 0, list: List.empty()));
   List<int> values = [];
-  int punten = 0;
-  Random random = new Random();
+  Random random = Random();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,13 +43,6 @@ class _DetailPageState extends State {
   @override
   void initState() {
     super.initState();
-    _setMessage("Default");
-    punten = 0;
-    for (Verkeersbord bord in list) {
-      if (bord.gehaald == "1") {
-        punten++;
-      }
-    }
 
     // Hier stellen we de posities van de foute antwoorden vast, deze mogen niet gelijk zijn aan elkaar of aan het juiste antwoord
     var max = 0;
@@ -68,32 +61,28 @@ class _DetailPageState extends State {
     }
   }
 
+// Als ik deze functie oproep, wordt het foutbericht geupdate (dit is een Text widget bovenaan de antwoordknoppen)
   void _setFoutbericht(String foutbericht) {
     setState(() {
       this.foutbericht = foutbericht;
     });
   }
 
+// Door deze functie op te roepen update ik wat er in de "Juist!"-knop komt te staan (de knop die verschijnt wanneer je op het juiste antwoord klikt)
   void _setMessage(String bericht) {
     setState(() {
       this.bericht = bericht;
-      VerkeersbordApi.fetchVerkeerborden().then((result) {
-        if (mounted) {
-          setState(() {
-            list = result;
-          });
-        }
-      });
-      punten = 0;
-      for (Verkeersbord bord in list) {
-        if (bord.gehaald == "1") {
-          punten++;
-        }
-      }
     });
   }
 
-// deze functie word gecalled wanneer er op een van de mogelijke antwoorden word geklikt
+// In deze functie update ik de route waar de "Juist!"-knop naar verwijst
+  void _setRoute(MaterialPageRoute route) {
+    setState(() {
+      this.route = route;
+    });
+  }
+
+// Deze functie word gecalled wanneer er op een van de mogelijke antwoorden word geklikt
   void answer({bool antwoordJuist = false}) {
     nextposition = position;
     String currentCategorie = list[position].categorie;
@@ -102,40 +91,40 @@ class _DetailPageState extends State {
     if (antwoordJuist) {
       bericht = "Juist! Volgende -->";
       list[position].gehaald = "1";
-
+      // Hier itereer ik door de verkeersbordenlijst, op zoek naar het volgende verkeersbord binnen dezelfde categorie
       while ((nextposition == position ||
               list[nextposition].categorie != currentCategorie) &&
           nextposition < list.length) {
         nextposition += 1;
+        // Wanneer ik op het einde van de lijst kom, betekend dit dat we de laatste vraag in de categorie juist hebben beantwoord.
         if (nextposition == list.length) {
+          // Hier verander ik dan ook het bericht en de route van de "Juist!"-knop zodat je naar het hoofdscherm terugkeert ipv naar het volgende verkeersbord
           bericht = "Profitiat, deze categorie is klaar!";
           route = MaterialPageRoute(builder: (context) => RouteToHome());
-          setState(() {
-            route = route;
-          });
+          _setRoute(route);
         }
         if (nextposition == list.length) {
           nextposition = 0;
         }
       }
       antwoordJuist = false;
-    } else {
+    }
+    // Hier komen we terecht wanneer het antwoord fout is, we geven een foutbericht mee, en zetten de waarde "gehaald" op 0 (hier berekenen we de totaalpunten mee)
+    else {
       list[position].gehaald = "0";
       foutbericht = "Fout! Probeer opnieuw.";
       _setFoutbericht(foutbericht);
     }
     _setMessage(bericht);
-
+    // Hier updaten we ook de API zodat de puntentelling wordt bijgehouden
     VerkeersbordApi.updateVerkeersbord(list[position].id, list[position])
         .then((result) {});
   }
 
+// Hierin staat de hele pagina layout
   Scaffold toonAntwoorden() {
-    // Positie bepalen van volgend verkeersbord binnen deze categorie
-
-    // Dit legt de posities van de foute antwoorden vast, deze mogen niet gelijk zijn aan elkaar of aan het juiste antwoord
-
-    AssetImage avatarAsset = AssetImage(list[position].afbeeldingLink);
+    AssetImage avatarAsset = AssetImage(list[position]
+        .afbeeldingLink); // De afbeelding van het geselecteerde verkeersbord
     return Scaffold(
       appBar: AppBar(
         title: const Text("Test"),
@@ -164,11 +153,13 @@ class _DetailPageState extends State {
                       width: 500,
                       height: 300,
                       child: Column(
+                        // In deze column staat het foutbericht, de 4 mogelijke antwoorden en de knop om naar de volgende vraag te gaan (initieel onzichtbaar)
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(foutbericht),
                           const SizedBox(height: 30),
                           TextButton(
+                            // Fout antwoord
                             style: TextButton.styleFrom(
                                 textStyle: const TextStyle(fontSize: 20),
                                 foregroundColor: Colors.white,
@@ -179,6 +170,7 @@ class _DetailPageState extends State {
                             child: Text(list[values[0]].naam),
                           ),
                           TextButton(
+                            // Fout antwoord
                             style: TextButton.styleFrom(
                                 textStyle: const TextStyle(fontSize: 20),
                                 foregroundColor: Colors.white,
@@ -189,6 +181,7 @@ class _DetailPageState extends State {
                             child: Text(list[values[1]].naam),
                           ),
                           TextButton(
+                            // Fout antwoord
                             style: TextButton.styleFrom(
                                 textStyle: const TextStyle(fontSize: 20),
                                 foregroundColor: Colors.white,
@@ -199,6 +192,7 @@ class _DetailPageState extends State {
                             child: Text(list[values[2]].naam),
                           ),
                           TextButton(
+                              // Juist antwoord - wanneer hierop geklikt wordt, wordt de knop getoont om verder te gaan
                               style: TextButton.styleFrom(
                                   textStyle: const TextStyle(fontSize: 20),
                                   foregroundColor: Colors.white,
@@ -212,6 +206,7 @@ class _DetailPageState extends State {
                               child: Text(list[position].naam)),
                           shouldDisplay
                               ? TextButton(
+                                  // Dit is de knop om verder te gaan (of naar de homepage, als je heel de categorie hebt gehad)
                                   style: TextButton.styleFrom(
                                       textStyle: const TextStyle(fontSize: 20),
                                       foregroundColor: Colors.white,
