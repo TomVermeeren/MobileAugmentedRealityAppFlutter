@@ -7,18 +7,16 @@ import 'routetohome.dart';
 
 class DetailPage extends StatefulWidget {
   final int position;
-  final List<Verkeersbord> list;
-  const DetailPage({Key? key, required this.position, required this.list})
-      : super(key: key);
+  const DetailPage({Key? key, required this.position}) : super(key: key);
   @override
-  State<StatefulWidget> createState() => _DetailPageState(position, list);
+  State<StatefulWidget> createState() => _DetailPageState(position);
 }
 
 class _DetailPageState extends State {
   int position;
-  List<Verkeersbord> list;
 
-  _DetailPageState(this.position, this.list);
+  _DetailPageState(this.position);
+  List<Verkeersbord> list = [];
   String message = "";
   int nextposition = 0;
   String alertButtonText = "";
@@ -238,7 +236,6 @@ class _DetailPageState extends State {
                   new MaterialPageRoute(
                       builder: (context) => DetailPage(
                             position: nextposition,
-                            list: list,
                           )));
             }
           },

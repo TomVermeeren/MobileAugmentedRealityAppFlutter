@@ -73,13 +73,13 @@
       "videoLink": 3
     },
     {
-      "id": 6,
       "naam": "Voorrang verlenen",
       "beschrijving": "Dit verkeersbord plaats je in de onmiddellijke nabijheid van een plaats waar een bestuurder voorrang moet verlenen.",
       "afbeeldingLink": "assets/Verkeersbord_B6.png",
       "categorie": "Voorrangsborden",
-      "gehaald": "0",
-      "videoLink": 3
+      "gehaald": "1",
+      "videoLink": 3,
+      "id": 6
     },
     {
       "id": 7,

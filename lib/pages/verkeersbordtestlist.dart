@@ -82,7 +82,6 @@ class _VerkeersbordTestListPageState extends State {
                           new MaterialPageRoute(
                               builder: (context) => DetailPage(
                                     position: position,
-                                    list: verkeersbordList,
                                   )));
                     },
                     child: Column(
