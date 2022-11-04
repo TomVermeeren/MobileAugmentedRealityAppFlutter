@@ -4,7 +4,7 @@ import 'dart:convert';
 import '../models/verkeersbord.dart';
 
 class VerkeersbordApi {
-  static String server = 'funny-moles-prove-94-227-20-155.loca.lt';
+  static String server = 'silver-lizards-guess-94-227-20-155.loca.lt';
 
   static Future<List<Categorie>> fetchCategorieen() async {
     var url = Uri.https(server, '/categorieen');
@@ -51,4 +51,16 @@ class VerkeersbordApi {
       throw Exception('Verkeersborden konden niet geladen worden.');
     }
   }
+
+  // static Future<Verkeersbord> fetchVerkeersbordByImageName(String name) async {
+  //   name = "Voorrangsweg";
+  //   var url = Uri.https(server, '/verkeersborden?naam=$name');
+
+  //   final response = await http.get(url);
+  //   if (response.statusCode == 200) {
+  //     return Verkeersbord.fromJson(jsonDecode(response.body));
+  //   } else {
+  //     throw Exception("Failed to load verkeersbord");
+  //   }
+  // }
 }

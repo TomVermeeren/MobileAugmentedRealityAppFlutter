@@ -10,13 +10,13 @@ var World = {
                 World.videoLink = "assets/aanwijzingsbordenvideo.mp4"
                 break;
             case 2:
-                World.videoLink = "assets/aanwijzingsbordenvideo.mp4"
+                World.videoLink = "assets/verbodsbordenvideo.mp4"
                 break;
             case 3:
-                World.videoLink = "assets/aanwijzingsbordenvideo.mp4"
+                World.videoLink = "assets/voorrangsbordenvideo.mp4"
                 break;
             case 4:
-                World.videoLink = "assets/aanwijzingsbordenvideo.mp4"
+                World.videoLink = "assets/gebodsbordenvideo.mp4"
                 break;
             case 5:
                 World.videoLink = "assets/aanwijzingsbordenvideo.mp4"
@@ -94,7 +94,7 @@ var World = {
                 drawables: {
                     cam: [overlayOne, video]
                 },
-                onImageRecognized: function onImageRecognizedFn() {
+                onImageRecognized: function onImageRecognizedFn(target) {
                     if (this.hasVideoStarted) {
                         video.resume();
                     }
@@ -102,6 +102,9 @@ var World = {
                         this.hasVideoStarted = true;
                         video.play(-1);
                     }
+                    AR.platform.sendJSONObject({
+                        "image_scanned" : target.name
+                    });
                     World.removeLoadingBar();                
                 },
                 onImageLost: function onImageLostFn() {

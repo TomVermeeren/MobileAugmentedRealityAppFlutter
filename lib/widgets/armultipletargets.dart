@@ -1,6 +1,14 @@
+import 'dart:math';
+
 import 'package:augmented_reality_plugin_wikitude/architect_widget.dart';
 import 'package:augmented_reality_plugin_wikitude/startupConfiguration.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_verkeersborden_tom_jan/apis/verkeersbord_api.dart';
+import 'package:flutter_verkeersborden_tom_jan/pages/detailbordinfo.dart';
+import 'package:flutter_verkeersborden_tom_jan/pages/routetotestlist.dart';
+import 'package:flutter_verkeersborden_tom_jan/pages/verkeersbordtestlist.dart';
+
+import '../models/verkeersbord.dart';
 
 class ArMultipleTargetsWidget extends StatefulWidget {
   const ArMultipleTargetsWidget({Key? key}) : super(key: key);
@@ -22,6 +30,7 @@ class _ArMultipleTargetsWidgetState extends State<ArMultipleTargetsWidget>
   @override
   void initState() {
     super.initState();
+    _getVerkeersborden();
 
     WidgetsBinding.instance.addObserver(this);
 
@@ -31,6 +40,17 @@ class _ArMultipleTargetsWidgetState extends State<ArMultipleTargetsWidget>
       startupConfiguration: startupConfiguration,
       features: features,
     );
+  }
+
+  List<Verkeersbord> verkeersbordList = [];
+  void _getVerkeersborden() {
+    VerkeersbordApi.fetchVerkeerborden().then((result) {
+      if (mounted) {
+        setState(() {
+          verkeersbordList = result;
+        });
+      }
+    });
   }
 
   @override
@@ -69,7 +89,24 @@ class _ArMultipleTargetsWidgetState extends State<ArMultipleTargetsWidget>
         onLoadSuccess,
         onLoadFailed);
     architectWidget.resume();
+    // architectWidget.setJSONObjectReceivedCallback(
+    //     (result) => onJSONObjectReceived(result));
   }
+
+  // void onJSONObjectReceived(Map<String, dynamic> jsonObject) async {
+  //   var imageScanned = ARImageResponse.fromJson(jsonObject);
+  //   //get question and navigate to question/answer page
+  //   VerkeersbordApi.fetchVerkeersbordByImageName(imageScanned.imageScanned)
+  //       .then((result) {
+  //     if (result != null) {
+  //       Navigator.push(
+  //         context,
+  //         MaterialPageRoute(
+  //             builder: (context) => RouteToTestList(titel: result.naam)),
+  //       );
+  //     }
+  //   });
+  // }
 
   var videolink = 1;
   Future<void> onLoadSuccess() async {
@@ -83,3 +120,15 @@ class _ArMultipleTargetsWidgetState extends State<ArMultipleTargetsWidget>
     debugPrint(error);
   }
 }
+
+// class ARImageResponse {
+//   String imageScanned;
+
+//   ARImageResponse({required this.imageScanned});
+
+//   factory ARImageResponse.fromJson(Map<String, dynamic> json) {
+//     return ARImageResponse(
+//       imageScanned: json['image_scanned'],
+//     );
+//   }
+// }
