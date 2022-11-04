@@ -10,13 +10,13 @@ var World = {
                 World.videoLink = "assets/aanwijzingsbordenvideo.mp4"
                 break;
             case 2:
-                World.videoLink = "assets/aanwijzingsbordenvideo.mp4"
+                World.videoLink = "assets/verbodsbordenvideo.mp4"
                 break;
             case 3:
-                World.videoLink = "assets/aanwijzingsbordenvideo.mp4"
+                World.videoLink = "assets/voorrangsbordenvideo.mp4"
                 break;
             case 4:
-                World.videoLink = "assets/aanwijzingsbordenvideo.mp4"
+                World.videoLink = "assets/gebodsbordenvideo.mp4"
                 break;
             case 5:
                 World.videoLink = "assets/aanwijzingsbordenvideo.mp4"
@@ -76,17 +76,21 @@ var World = {
         // Create overlay for page one
 
 
-            var imgOne = new AR.ImageResource("assets/Verkeersbord_B1.png");
-            var overlayOne = new AR.ImageDrawable(imgOne, 1, {
+            var imgOne = new AR.ImageResource("assets/testknop.png");
+            var overlayOne = new AR.ImageDrawable(imgOne, 0.7, {
                 translate: {
-                    x: -0.15,
+                    y: 0.7
+                },
+                onclick: function(target){
+                    AR.platform.sendJSONObject({
+                        "image_scanned" : target.name
+                    });
                 }
             });
 
-            var video = new AR.VideoDrawable((World.videoLink).toString(), 0.5, {
+            var video = new AR.VideoDrawable((World.videoLink).toString(), 1, {
                 translate: {
-                    x: 0.2,
-                    y: 0.2
+                    y: 1.4
                 }});
 
 
@@ -94,7 +98,7 @@ var World = {
                 drawables: {
                     cam: [overlayOne, video]
                 },
-                onImageRecognized: function onImageRecognizedFn() {
+                onImageRecognized: function onImageRecognizedFn(target) {
                     if (this.hasVideoStarted) {
                         video.resume();
                     }
@@ -102,6 +106,10 @@ var World = {
                         this.hasVideoStarted = true;
                         video.play(-1);
                     }
+                    AR.platform.sendJSONObject({
+                        "image_scanned" : target.name
+                    });
+                    // AR.hardware.camera.enabled = false;
                     World.removeLoadingBar();                
                 },
                 onImageLost: function onImageLostFn() {
@@ -124,3 +132,4 @@ var World = {
     }
     
 };
+
