@@ -16,7 +16,7 @@ class _ArBordenPageState extends State<ArBordenPage> {
         title: const Text("Verkeersborden"),
       ),
       body: const Center(
-          // Here we load the Widget with the AR Dino experience
+          // We laden de widget met de AR omegeving
           child: ArMultipleTargetsWidget()),
     );
   }

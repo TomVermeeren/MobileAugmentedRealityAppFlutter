@@ -28,13 +28,13 @@
   ],
   "verkeersborden": [
     {
-      "id": 1,
       "naam": "Zone 30",
       "beschrijving": "Dit verkeersbord geeft aan dat hier het begin is van een zone met een snelheidsbeperking van 30km per uur.",
       "afbeeldingLink": "assets/Verkeersbord_A1-30zb.png",
       "categorie": "Aanwijzingsborden",
-      "gehaald": "0",
-      "videoLink": 1
+      "gehaald": "1",
+      "videoLink": 1,
+      "id": 1
     },
     {
       "id": 2,
@@ -46,13 +46,13 @@
       "videoLink": 1
     },
     {
-      "id": 3,
       "naam": "Maximum 70km/h",
       "beschrijving": "Vanaf het verkeersbord tot en met het volgend kruispunt, of tot elk verkeersbord van maximum 70km/h met of zonder zonale geldigheid, of tot het verkeersbord dat het begin of het einde van een bebouwde kom, van een woonerf of erf, of van een voetgangerszone aanduidt, verbod te rijden met een grotere snelheid dan deze die is aangeduid.",
       "afbeeldingLink": "assets/Verkeersbord_A1-70.png",
       "categorie": "Verbodsborden",
       "gehaald": "0",
-      "videoLink": 2
+      "videoLink": 2,
+      "id": 3
     },
     {
       "id": 4,

@@ -10,6 +10,7 @@ class RouteToHome extends StatelessWidget {
     return const MaterialApp(
         title: 'Flutter Camera Demo',
         debugShowCheckedModeBanner: false,
+        // toont navbar onderaan het scherm
         home: MyNavbar());
   }
 }
