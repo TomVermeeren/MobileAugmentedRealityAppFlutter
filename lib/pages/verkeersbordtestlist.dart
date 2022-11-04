@@ -54,16 +54,10 @@ class _VerkeersbordTestListPageState extends State {
     } else {
       max = verkeersbordList.length - 1;
     }
-    var intValue1;
-    var intValue2;
-    var intValue3;
 
     return ListView.builder(
         itemCount: count,
         itemBuilder: (BuildContext context, int position) {
-          intValue1 = Random().nextInt(max);
-          intValue2 = Random().nextInt(max);
-          intValue3 = Random().nextInt(max);
           // for (int value in intValues) {
           //   value = Random().nextInt(verkeersbordList.length - 1);
           // }
