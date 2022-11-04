@@ -7,24 +7,20 @@ import 'routetohome.dart';
 
 class DetailPage extends StatefulWidget {
   final int position;
-  const DetailPage({Key? key, required this.position}) : super(key: key);
+  final List<Verkeersbord> list;
+  const DetailPage({Key? key, required this.position, required this.list})
+      : super(key: key);
   @override
-  State<StatefulWidget> createState() => _DetailPageState(position);
+  State<StatefulWidget> createState() => _DetailPageState(position, list);
 }
 
 class _DetailPageState extends State {
   int position;
   List<Verkeersbord> list;
+
+  _DetailPageState(this.position, this.list);
   BuildContext? dcontext;
   bool shouldDisplay = false;
-  dismissDailog() {
-    if (dcontext != null) {
-      Navigator.pop(dcontext!);
-    }
-  }
-
-  _DetailPageState(this.position);
-  List<Verkeersbord> list = [];
   String message = "";
   int nextposition = 0;
   String alertButtonText = "";
@@ -205,33 +201,31 @@ class _DetailPageState extends State {
                           foregroundColor: Colors.white,
                           backgroundColor: Colors.lightBlue),
                       onPressed: () {
-                        // answer(antwoordJuist: true);
-                        setState(() {
-                          shouldDisplay = !shouldDisplay;
-                        });
+                        answer(antwoordJuist: true);
+                        // setState(() {
+                        //   shouldDisplay = !shouldDisplay;
+                        // });
                       },
                       child: Text(list[position].naam)),
-                  shouldDisplay
-                      ? Flexible(
-                          child: TextButton(
-                          style: TextButton.styleFrom(
-                            textStyle: const TextStyle(fontSize: 20),
-                            foregroundColor: Colors.white,
-                            backgroundColor: Colors.blue,
-                            fixedSize: const Size(200, 30),
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => DetailPage(
-                                          position: nextposition,
-                                          list: list,
-                                        )));
-                          },
-                          child: const Text("Volgende"),
-                        ))
-                      : const Spacer(),
+                  // // shouldDisplay
+                  // //     ? Flexible(
+                  // //         child: TextButton(
+                  // //         style: TextButton.styleFrom(
+                  // //           textStyle: const TextStyle(fontSize: 20),
+                  // //           foregroundColor: Colors.white,
+                  // //           backgroundColor: Colors.blue,
+                  // //           fixedSize: const Size(200, 30),
+                  // //         ),
+                  // //         onPressed: () {
+                  // //           Navigator.push(
+                  // //               context,
+                  // //               MaterialPageRoute(
+                  // //                   builder: (context) => DetailPage(
+                  // //                       position: nextposition, list: list)));
+                  // //         },
+                  // //         child: const Text("Volgende"),
+                  // //       ))
+                  // //     : const Spacer(),
                   Text(foutbericht + punten.toString())
                 ],
               )
@@ -256,9 +250,8 @@ class _DetailPageState extends State {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => DetailPage(
-                            position: nextposition,
-                          )));
+                      builder: (context) =>
+                          DetailPage(position: nextposition, list: list)));
             }
           },
           child: Text(alertButtonText),
