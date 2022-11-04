@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_verkeersborden_tom_jan/pages/categorieleerlist.dart';
 import 'package:flutter_verkeersborden_tom_jan/pages/categorietestlist.dart';
+import '../apis/verkeersbord_api.dart';
+import '../models/verkeersbord.dart';
 import 'scan.dart';
 
 class MyNavbar extends StatefulWidget {
@@ -12,6 +14,8 @@ class MyNavbar extends StatefulWidget {
 
 class _MyStatefulWidgetState extends State<MyNavbar> {
   int _selectedIndex = 0;
+  int punten = 0;
+  List<Verkeersbord> list = [];
 
   static const List<Widget> _widgetOptions = <Widget>[
     CategorieTestListPage(),
@@ -30,11 +34,25 @@ class _MyStatefulWidgetState extends State<MyNavbar> {
   @override
   Widget build(BuildContext context) {
     MainAxisSize.min;
+    VerkeersbordApi.fetchVerkeerborden().then((result) {
+      if (mounted) {
+        setState(() {
+          list = result;
+        });
+      }
+    });
+    punten = 0;
+    for (Verkeersbord bord in list) {
+      if (bord.gehaald == "1") {
+        punten++;
+      }
+    }
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 100,
         leadingWidth: 100,
-        title: const Text("Verkeersborden Tom & Jan"),
+        title: Text(
+            "Verkeersbord APP                 Punten: " + punten.toString()),
         centerTitle: true,
       ),
       body: Center(

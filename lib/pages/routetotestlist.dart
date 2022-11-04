@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_verkeersborden_tom_jan/pages/routetohome.dart';
 import 'package:flutter_verkeersborden_tom_jan/pages/verkeersbordtestlist.dart';
 
 class RouteToTestList extends StatelessWidget {
@@ -12,12 +13,7 @@ class RouteToTestList extends StatelessWidget {
         title: Text(titel),
       ),
       body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: VerkeersbordenTestListPage(titel: this.titel),
-        ),
+        child: VerkeersbordenTestListPage(titel: titel),
       ),
     );
   }

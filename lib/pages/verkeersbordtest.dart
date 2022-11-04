@@ -14,6 +14,14 @@ class DetailPage extends StatefulWidget {
 
 class _DetailPageState extends State {
   int position;
+  List<Verkeersbord> list;
+  BuildContext? dcontext;
+  bool shouldDisplay = false;
+  dismissDailog() {
+    if (dcontext != null) {
+      Navigator.pop(dcontext!);
+    }
+  }
 
   _DetailPageState(this.position);
   List<Verkeersbord> list = [];
@@ -44,6 +52,7 @@ class _DetailPageState extends State {
         punten++;
       }
     }
+
     // Hier stellen we de posities van de foute antwoorden vast, deze mogen niet gelijk zijn aan elkaar of aan het juiste antwoord
     var max = 0;
 
@@ -88,7 +97,7 @@ class _DetailPageState extends State {
   }
 
 // deze functie word gecalled wanneer er op een van de mogelijke antwoorden word geklikt
-  void answer(bool antwoordJuist) {
+  void answer({bool antwoordJuist = false}) {
     nextposition = position;
     String currentCategorie = list[position].categorie;
 
@@ -114,9 +123,8 @@ class _DetailPageState extends State {
           nextposition = 0;
         }
       }
-
+      antwoordJuist = false;
       _setMessage(message, alertButtonText);
-
       showDialog(
         context: context,
         builder: (BuildContext context) => _buildPopupDialog(context),
@@ -144,6 +152,7 @@ class _DetailPageState extends State {
       body: Container(
           margin: const EdgeInsets.all(20.0),
           width: 2000,
+          height: 2000,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -166,17 +175,7 @@ class _DetailPageState extends State {
                         foregroundColor: Colors.white,
                         backgroundColor: Colors.lightBlue),
                     onPressed: () {
-                      answer(true);
-                    },
-                    child: Text(list[position].naam),
-                  ),
-                  TextButton(
-                    style: TextButton.styleFrom(
-                        textStyle: const TextStyle(fontSize: 20),
-                        foregroundColor: Colors.white,
-                        backgroundColor: Colors.lightBlue),
-                    onPressed: () {
-                      answer(false);
+                      answer(antwoordJuist: false);
                     },
                     child: Text(list[values[0]].naam),
                   ),
@@ -186,7 +185,7 @@ class _DetailPageState extends State {
                         foregroundColor: Colors.white,
                         backgroundColor: Colors.lightBlue),
                     onPressed: () {
-                      answer(false);
+                      answer(antwoordJuist: false);
                     },
                     child: Text(list[values[1]].naam),
                   ),
@@ -196,10 +195,43 @@ class _DetailPageState extends State {
                         foregroundColor: Colors.white,
                         backgroundColor: Colors.lightBlue),
                     onPressed: () {
-                      answer(false);
+                      answer(antwoordJuist: false);
                     },
                     child: Text(list[values[2]].naam),
                   ),
+                  TextButton(
+                      style: TextButton.styleFrom(
+                          textStyle: const TextStyle(fontSize: 20),
+                          foregroundColor: Colors.white,
+                          backgroundColor: Colors.lightBlue),
+                      onPressed: () {
+                        // answer(antwoordJuist: true);
+                        setState(() {
+                          shouldDisplay = !shouldDisplay;
+                        });
+                      },
+                      child: Text(list[position].naam)),
+                  shouldDisplay
+                      ? Flexible(
+                          child: TextButton(
+                          style: TextButton.styleFrom(
+                            textStyle: const TextStyle(fontSize: 20),
+                            foregroundColor: Colors.white,
+                            backgroundColor: Colors.blue,
+                            fixedSize: const Size(200, 30),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DetailPage(
+                                          position: nextposition,
+                                          list: list,
+                                        )));
+                          },
+                          child: const Text("Volgende"),
+                        ))
+                      : const Spacer(),
                   Text(foutbericht + punten.toString())
                 ],
               )
@@ -210,30 +242,20 @@ class _DetailPageState extends State {
 
   Widget _buildPopupDialog(BuildContext context) {
     // ignore: unnecessary_new
-    return new AlertDialog(
+
+    return AlertDialog(
       title: Text(message),
       actions: <Widget>[
         TextButton(
           onPressed: () {
-            Navigator.push(
-                context,
-                new MaterialPageRoute(
-                    builder: (context) => RouteToTestList(
-                          titel: list[position].categorie,
-                        )));
-          },
-          child: const Text('Terug naar menu'),
-        ),
-        TextButton(
-          onPressed: () {
             if (alertButtonText.contains("Categorie")) {
               Navigator.push(context,
-                  new MaterialPageRoute(builder: (context) => RouteToHome()));
+                  MaterialPageRoute(builder: (context) => RouteToHome()));
             } else {
               _setMessage(message, alertButtonText);
               Navigator.push(
                   context,
-                  new MaterialPageRoute(
+                  MaterialPageRoute(
                       builder: (context) => DetailPage(
                             position: nextposition,
                           )));
