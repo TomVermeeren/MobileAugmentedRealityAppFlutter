@@ -25,7 +25,7 @@ class _ArMultipleTargetsWidgetState extends State<ArMultipleTargetsWidget>
       cameraPosition: CameraPosition.BACK,
       cameraResolution: CameraResolution.AUTO);
   List<String> features = ["image_tracking"];
-
+  List<Verkeersbord> list = [];
   @override
   void initState() {
     super.initState();
@@ -94,6 +94,7 @@ class _ArMultipleTargetsWidgetState extends State<ArMultipleTargetsWidget>
 
   void onJSONObjectReceived(Map<String, dynamic> jsonObject) async {
     var imageScanned = ARImageResponse.fromJson(jsonObject);
+
     //get question and navigate to question/answer page
     VerkeersbordApi.fetchVerkeersbordByImageName(imageScanned.imageScanned)
         .then((result) {
@@ -101,8 +102,9 @@ class _ArMultipleTargetsWidgetState extends State<ArMultipleTargetsWidget>
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => VerkeersbordenLeerListPage(
-                    titel: "Gebodsborden",
+              builder: (context) => DetailPage(
+                    position: result.id - 1,
+                    list: verkeersbordList,
                   )),
         );
         dispose();
