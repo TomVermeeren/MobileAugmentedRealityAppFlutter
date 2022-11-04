@@ -8,8 +8,10 @@ import 'dart:convert';
 import '../models/verkeersbord.dart';
 
 class VerkeersbordApi {
+  // link naar onze API (aan te passen bij restart)
   static String server = 'twenty-rats-wonder-81-246-184-163.loca.lt';
 
+// methode om al de categorieën op te halen uit de API
   static Future<List<Categorie>> fetchCategorieen() async {
     var url = Uri.https(server, '/categorieen');
     final response = await http.get(url);
@@ -23,6 +25,7 @@ class VerkeersbordApi {
     }
   }
 
+// methode om een verkeersborden te updaten in de API (deze wordt gebruikt om het puntensysteem te onthouden)
   static Future<Verkeersbord> updateVerkeersbord(
       int id, Verkeersbord verkeersbord) async {
     var url = Uri.https(server, '/verkeersborden/$id');
@@ -41,6 +44,7 @@ class VerkeersbordApi {
     }
   }
 
+// methode om al de verkeersborden op te halen uit de API
   static Future<List<Verkeersbord>> fetchVerkeerborden() async {
     var url = Uri.https(server, '/verkeersborden');
 
@@ -56,46 +60,40 @@ class VerkeersbordApi {
     }
   }
 
+// methode om het juiste verkeersbord op te halen uit de API
   static Future<Verkeersbord> fetchVerkeersbordByImageName(String name) async {
-    // name = "Voorrangsweg";
+    // lijst aanmaken om zo meteen te gebruiken
     List<Verkeersbord> verkeersbordenList = [];
+    // maak url
     var url = Uri.https(server, '/verkeersborden');
-
+// check of de API up & running is
     var response = await http.get(url);
 
     if (response.statusCode == 200) {
+      // neem de json output en steek het in een variable
       List jsonResponse = json.decode(response.body);
+      // vul de list met deze verkeersborden
       verkeersbordenList = jsonResponse
           .map((verkeersbord) => Verkeersbord.fromJson(verkeersbord))
           .toList();
     } else {
       throw Exception('Verkeersborden konden niet geladen worden.');
     }
-    // fetchVerkeerborden().then((result) => verkeersbordenList = result);
-    debugPrint(
-        "verkeersbordenlist in de api: " + verkeersbordenList.toString());
 
+// voor elk verkeersbord in de list gaan we kijken of de name zich in de afbeeldinglink bevind.
+// dit doen we omdat we van wikitude de afbeelding link doorkrijgen.
     for (Verkeersbord verkeersbord in verkeersbordenList) {
-      debugPrint("verkeersbord in de for loop: $verkeersbord");
       if (verkeersbord.afbeeldingLink == "assets/$name.png") {
+        //pas name aan naar de effectieve naam, en niet de afbeelding naam.
         name = verkeersbord.naam;
-        debugPrint("Name is gelijk aan: " + name);
       }
     }
-    debugPrint("de image scanned na het einde van de for loop is: $name");
-    // var verkeersbord;
-    // for (verkeersbord in verkeersbordenList){
-    //   if(verkeersbord[afbeeldingLink] == name ){
-    //     name
-    //   }
-    // }
-    debugPrint("de naam in api is: " + name);
+    // we passen de url aan om alleen de inhoud van het verkeersbord dat we willen opvragen, op te vragen.
     url = Uri.parse('https://$server/verkeersborden?naam=$name');
-    debugPrint("de url in api is: " + url.toString());
     response = await http.get(url);
-    debugPrint("de response code in api is: " +
-        Verkeersbord.fromJson(jsonDecode(response.body)[0]).toString());
     if (response.statusCode == 200) {
+      // geef de inhoud van het specifieke verkeersbord terug (om het dan te gebruiken in de communicatie tussen
+      // flutter en wikitude)
       return Verkeersbord.fromJson(jsonDecode(response.body)[0]);
     } else {
       throw Exception("Failed to load verkeersbord");

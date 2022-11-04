@@ -59,7 +59,6 @@ var World = {
                 is reached and it may slow down the tracking of already recognized targets.
              */
             extendedRangeRecognition: AR.CONST.IMAGE_RECOGNITION_RANGE_EXTENSION.OFF,
-            onTargetsLoaded: World.showInfoBar,
             onError: World.onError
         });
 
@@ -109,8 +108,6 @@ var World = {
                     AR.platform.sendJSONObject({
                         "image_scanned" : target.name
                     });
-                    // AR.hardware.camera.enabled = false;
-                    World.removeLoadingBar();                
                 },
                 onImageLost: function onImageLostFn() {
                     video.pause();
@@ -121,15 +118,5 @@ var World = {
     onError: function onErrorFn(error) {
         alert(error);
     },
-
-    hideInfoBar: function hideInfoBarFn() {
-        document.getElementById("infoBox").style.display = "none";
-    },
-
-    showInfoBar: function worldLoadedFn() {
-        document.getElementById("infoBox").style.display = "table";
-        document.getElementById("loadingMessage").style.display = "none";
-    }
-    
 };
 
