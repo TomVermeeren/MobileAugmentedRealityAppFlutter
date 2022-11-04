@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_verkeersborden_tom_jan/apis/verkeersbord_api.dart';
 import '../models/verkeersbord.dart';
 import 'dart:math';
-import 'routetotestlist.dart';
 import 'routetohome.dart';
 
 class DetailPage extends StatefulWidget {
+  // We vragen de lijst met verkeersborden mee en de positie van het verkeersbord waar we in deze pagina een test over maken
   final int position;
   final List<Verkeersbord> list;
   const DetailPage({Key? key, required this.position, required this.list})
@@ -19,12 +19,14 @@ class _DetailPageState extends State {
   List<Verkeersbord> list;
 
   _DetailPageState(this.position, this.list);
-  BuildContext? dcontext;
+
   bool shouldDisplay = false;
-  String message = "";
+  String bericht = "";
   int nextposition = 0;
   String alertButtonText = "";
   String foutbericht = "";
+  MaterialPageRoute route = MaterialPageRoute(
+      builder: (context) => DetailPage(position: 0, list: List.empty()));
   List<int> values = [];
   int punten = 0;
   Random random = new Random();
@@ -41,7 +43,7 @@ class _DetailPageState extends State {
   @override
   void initState() {
     super.initState();
-    _setMessage("Default", alertButtonText);
+    _setMessage("Default");
     punten = 0;
     for (Verkeersbord bord in list) {
       if (bord.gehaald == "1") {
@@ -52,7 +54,7 @@ class _DetailPageState extends State {
     // Hier stellen we de posities van de foute antwoorden vast, deze mogen niet gelijk zijn aan elkaar of aan het juiste antwoord
     var max = 0;
 
-    if (list.length == 0) {
+    if (list.isEmpty) {
       max = 1;
     } else {
       max = list.length - 1;
@@ -72,9 +74,9 @@ class _DetailPageState extends State {
     });
   }
 
-  void _setMessage(String message, String alertButtonText) {
+  void _setMessage(String bericht) {
     setState(() {
-      this.message = message;
+      this.bericht = bericht;
       VerkeersbordApi.fetchVerkeerborden().then((result) {
         if (mounted) {
           setState(() {
@@ -88,7 +90,6 @@ class _DetailPageState extends State {
           punten++;
         }
       }
-      this.alertButtonText = alertButtonText;
     });
   }
 
@@ -96,10 +97,10 @@ class _DetailPageState extends State {
   void answer({bool antwoordJuist = false}) {
     nextposition = position;
     String currentCategorie = list[position].categorie;
-
+    route = MaterialPageRoute(
+        builder: (context) => DetailPage(position: nextposition, list: list));
     if (antwoordJuist) {
-      message = "Correct!";
-      alertButtonText = "Volgende vraag";
+      bericht = "Juist! Volgende -->";
       list[position].gehaald = "1";
 
       while ((nextposition == position ||
@@ -107,30 +108,24 @@ class _DetailPageState extends State {
           nextposition < list.length) {
         nextposition += 1;
         if (nextposition == list.length) {
-          alertButtonText = "Categorie menu";
-          message = "Profitiat, deze categorie is klaar!";
-          _setMessage(message, alertButtonText);
-          showDialog(
-            context: context,
-            builder: (BuildContext context) => _buildPopupDialog(context),
-          );
+          bericht = "Profitiat, deze categorie is klaar!";
+          route = MaterialPageRoute(builder: (context) => RouteToHome());
+          setState(() {
+            route = route;
+          });
         }
         if (nextposition == list.length) {
           nextposition = 0;
         }
       }
       antwoordJuist = false;
-      _setMessage(message, alertButtonText);
-      showDialog(
-        context: context,
-        builder: (BuildContext context) => _buildPopupDialog(context),
-      );
     } else {
       list[position].gehaald = "0";
       foutbericht = "Fout! Probeer opnieuw.";
       _setFoutbericht(foutbericht);
-      _setMessage(message, alertButtonText);
     }
+    _setMessage(bericht);
+
     VerkeersbordApi.updateVerkeersbord(list[position].id, list[position])
         .then((result) {});
   }
@@ -149,114 +144,88 @@ class _DetailPageState extends State {
           margin: const EdgeInsets.all(20.0),
           width: 2000,
           height: 2000,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Text(
-                "Wat betekent dit bord?",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-              ),
-              Flexible(
-                  child: Image(
-                image: avatarAsset,
-                width: 300.0,
-              )),
-              Column(
+          child: SizedBox(
+              width: 1500,
+              height: 1500,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
-                children: [
-                  const SizedBox(height: 30),
-                  TextButton(
-                    style: TextButton.styleFrom(
-                        textStyle: const TextStyle(fontSize: 20),
-                        foregroundColor: Colors.white,
-                        backgroundColor: Colors.lightBlue),
-                    onPressed: () {
-                      answer(antwoordJuist: false);
-                    },
-                    child: Text(list[values[0]].naam),
+                children: <Widget>[
+                  const Text(
+                    "Wat betekent dit bord?",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
                   ),
-                  TextButton(
-                    style: TextButton.styleFrom(
-                        textStyle: const TextStyle(fontSize: 20),
-                        foregroundColor: Colors.white,
-                        backgroundColor: Colors.lightBlue),
-                    onPressed: () {
-                      answer(antwoordJuist: false);
-                    },
-                    child: Text(list[values[1]].naam),
-                  ),
-                  TextButton(
-                    style: TextButton.styleFrom(
-                        textStyle: const TextStyle(fontSize: 20),
-                        foregroundColor: Colors.white,
-                        backgroundColor: Colors.lightBlue),
-                    onPressed: () {
-                      answer(antwoordJuist: false);
-                    },
-                    child: Text(list[values[2]].naam),
-                  ),
-                  TextButton(
-                      style: TextButton.styleFrom(
-                          textStyle: const TextStyle(fontSize: 20),
-                          foregroundColor: Colors.white,
-                          backgroundColor: Colors.lightBlue),
-                      onPressed: () {
-                        answer(antwoordJuist: true);
-                        // setState(() {
-                        //   shouldDisplay = !shouldDisplay;
-                        // });
-                      },
-                      child: Text(list[position].naam)),
-                  // // shouldDisplay
-                  // //     ? Flexible(
-                  // //         child: TextButton(
-                  // //         style: TextButton.styleFrom(
-                  // //           textStyle: const TextStyle(fontSize: 20),
-                  // //           foregroundColor: Colors.white,
-                  // //           backgroundColor: Colors.blue,
-                  // //           fixedSize: const Size(200, 30),
-                  // //         ),
-                  // //         onPressed: () {
-                  // //           Navigator.push(
-                  // //               context,
-                  // //               MaterialPageRoute(
-                  // //                   builder: (context) => DetailPage(
-                  // //                       position: nextposition, list: list)));
-                  // //         },
-                  // //         child: const Text("Volgende"),
-                  // //       ))
-                  // //     : const Spacer(),
-                  Text(foutbericht + punten.toString())
+                  Flexible(
+                      child: Image(
+                    image: avatarAsset,
+                    width: 300.0,
+                  )),
+                  SizedBox(
+                      width: 500,
+                      height: 300,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(foutbericht),
+                          const SizedBox(height: 30),
+                          TextButton(
+                            style: TextButton.styleFrom(
+                                textStyle: const TextStyle(fontSize: 20),
+                                foregroundColor: Colors.white,
+                                backgroundColor: Colors.lightBlue),
+                            onPressed: () {
+                              answer(antwoordJuist: false);
+                            },
+                            child: Text(list[values[0]].naam),
+                          ),
+                          TextButton(
+                            style: TextButton.styleFrom(
+                                textStyle: const TextStyle(fontSize: 20),
+                                foregroundColor: Colors.white,
+                                backgroundColor: Colors.lightBlue),
+                            onPressed: () {
+                              answer(antwoordJuist: false);
+                            },
+                            child: Text(list[values[1]].naam),
+                          ),
+                          TextButton(
+                            style: TextButton.styleFrom(
+                                textStyle: const TextStyle(fontSize: 20),
+                                foregroundColor: Colors.white,
+                                backgroundColor: Colors.lightBlue),
+                            onPressed: () {
+                              answer(antwoordJuist: false);
+                            },
+                            child: Text(list[values[2]].naam),
+                          ),
+                          TextButton(
+                              style: TextButton.styleFrom(
+                                  textStyle: const TextStyle(fontSize: 20),
+                                  foregroundColor: Colors.white,
+                                  backgroundColor: Colors.lightBlue),
+                              onPressed: () {
+                                answer(antwoordJuist: true);
+                                setState(() {
+                                  shouldDisplay = !shouldDisplay;
+                                });
+                              },
+                              child: Text(list[position].naam)),
+                          shouldDisplay
+                              ? TextButton(
+                                  style: TextButton.styleFrom(
+                                      textStyle: const TextStyle(fontSize: 20),
+                                      foregroundColor: Colors.white,
+                                      backgroundColor: Colors.lightGreen),
+                                  onPressed: () {
+                                    Navigator.push(context, route);
+                                  },
+                                  child: Text(bericht),
+                                )
+                              : const Spacer(),
+                        ],
+                      ))
                 ],
-              )
-            ],
-          )),
-    );
-  }
-
-  Widget _buildPopupDialog(BuildContext context) {
-    // ignore: unnecessary_new
-
-    return AlertDialog(
-      title: Text(message),
-      actions: <Widget>[
-        TextButton(
-          onPressed: () {
-            if (alertButtonText.contains("Categorie")) {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => RouteToHome()));
-            } else {
-              _setMessage(message, alertButtonText);
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          DetailPage(position: nextposition, list: list)));
-            }
-          },
-          child: Text(alertButtonText),
-        ),
-      ],
+              ))),
     );
   }
 }

@@ -99,6 +99,7 @@ class _ArMultipleTargetsWidgetState extends State<ArMultipleTargetsWidget>
     VerkeersbordApi.fetchVerkeersbordByImageName(imageScanned.imageScanned)
         .then((result) {
       if (result != null) {
+        debugPrint(result.id.toString());
         Navigator.push(
           context,
           MaterialPageRoute(
