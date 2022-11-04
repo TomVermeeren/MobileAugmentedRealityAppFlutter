@@ -13,9 +13,7 @@ class RouteToLeerList extends StatelessWidget {
       ),
       body: Center(
         child: ElevatedButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          onPressed: () {},
           child: VerkeersbordenLeerListPage(titel: this.titel),
         ),
       ),

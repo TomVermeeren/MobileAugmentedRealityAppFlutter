@@ -4,7 +4,7 @@ import 'dart:convert';
 import '../models/verkeersbord.dart';
 
 class VerkeersbordApi {
-  static String server = 'funny-moles-prove-94-227-20-155.loca.lt';
+  static String server = 'twenty-rats-wonder-81-246-184-163.loca.lt';
 
   static Future<List<Categorie>> fetchCategorieen() async {
     var url = Uri.https(server, '/categorieen');
