@@ -28,22 +28,22 @@
   ],
   "verkeersborden": [
     {
-      "id": 1,
       "naam": "Zone 30",
       "beschrijving": "Dit verkeersbord geeft aan dat hier het begin is van een zone met een snelheidsbeperking van 30km per uur.",
       "afbeeldingLink": "assets/Verkeersbord_A1-30zb.png",
       "categorie": "Aanwijzingsborden",
-      "gehaald": "0",
-      "videoLink": 1
+      "gehaald": "1",
+      "videoLink": 1,
+      "id": 1
     },
     {
-      "id": 2,
       "naam": "Einde zone 30",
       "beschrijving": "Dit verkeersbord geeft aan dat hier het einde is van een zone met een snelheidsbeperking van 30km per uur.",
       "afbeeldingLink": "assets/Verkeersbord_A1-30ze.png",
       "categorie": "Aanwijzingsborden",
-      "gehaald": "0",
-      "videoLink": 1
+      "gehaald": "1",
+      "videoLink": 1,
+      "id": 2
     },
     {
       "id": 3,
@@ -55,22 +55,22 @@
       "videoLink": 2
     },
     {
-      "id": 4,
       "naam": "Voorrangsweg",
       "beschrijving": "Dit verkeersbord geeft aan dat je je op een voorrangsweg bevindt.",
       "afbeeldingLink": "assets/Verkeersbord_B1.png",
       "categorie": "Voorrangsborden",
-      "gehaald": "0",
-      "videoLink": 3
+      "gehaald": "1",
+      "videoLink": 3,
+      "id": 4
     },
     {
-      "id": 5,
       "naam": "Einde voorrangsweg",
       "beschrijving": "Dit verkeersbord geeft aan dat je het einde van de voorrangsweg naderd. Dit verkeersbord wordt geplaatst bij het naderen van het kruispunt waar de voorrangsweg dit karakter verliest, behalve aan de uitrit van een autosnelweg waar het niet geplaatst mag worden.",
       "afbeeldingLink": "assets/Verkeersbord_B2.png",
       "categorie": "Voorrangsborden",
-      "gehaald": "0",
-      "videoLink": 3
+      "gehaald": "1",
+      "videoLink": 3,
+      "id": 5
     },
     {
       "naam": "Voorrang verlenen",
@@ -82,13 +82,13 @@
       "id": 6
     },
     {
-      "id": 7,
       "naam": "Stoppen en voorrang verlenen",
       "beschrijving": "Dit verkeersbord wordt geplaatst in de onmiddellijke omgeving van het kruispunt waar de bestuurder moet stoppen en voorrang verlenen.",
       "afbeeldingLink": "assets/Verkeersbord_B7.png",
       "categorie": "Voorrangsborden",
-      "gehaald": "0",
-      "videoLink": 3
+      "gehaald": "1",
+      "videoLink": 3,
+      "id": 7
     },
     {
       "id": 8,
@@ -118,40 +118,40 @@
       "videoLink": 2
     },
     {
-      "id": 11,
       "naam": "Voorrang bij smalle doorgang",
       "beschrijving": "Verkeersbord dat een smalle doorgang aangeeft. Voorrang ten opzichte van de bestuurders die uit de tegenovergestelde richting komen.",
       "afbeeldingLink": "assets/Verkeersbord_F6.png",
       "categorie": "Voorrangsborden",
-      "gehaald": "0",
-      "videoLink": 3
+      "gehaald": "1",
+      "videoLink": 3,
+      "id": 11
     },
     {
-      "id": 12,
       "naam": "Einde autosnelweg",
       "beschrijving": "Dit verkeersbord geeft aan dat dit het einde van een autosnelweg is.",
       "afbeeldingLink": "assets/Verkeersbord_G2.png",
       "categorie": "Aanwijzingsborden",
-      "gehaald": "0",
-      "videoLink": 1
+      "gehaald": "1",
+      "videoLink": 1,
+      "id": 12
     },
     {
-      "id": 13,
       "naam": "Einde van de autoweg",
       "beschrijving": "Dit verkeersbord geeft aan dat vanaf dat hier het einde is van de autoweg. De bijzondere verkeersregels gelden vanaf hier ook niet meer.",
       "afbeeldingLink": "assets/Verkeersbord_G4.png",
       "categorie": "Aanwijzingsborden",
-      "gehaald": "0",
-      "videoLink": 1
+      "gehaald": "1",
+      "videoLink": 1,
+      "id": 13
     },
     {
-      "id": 14,
       "naam": "Voorrang van rechts",
       "beschrijving": "Dit verkeersbord wordt geplaatst in de onmiddellijke omgeving van een kruispunt waar de voorrang van rechts geldt.",
       "afbeeldingLink": "assets/Verkeersbord_J8.png",
       "categorie": "Voorrangsborden",
-      "gehaald": "0",
-      "videoLink": 3
+      "gehaald": "1",
+      "videoLink": 3,
+      "id": 14
     },
     {
       "id": 15,
@@ -208,13 +208,13 @@
       "videoLink": 4
     },
     {
-      "id": 21,
       "naam": "Verplicht één van de pijlen te volgen.",
       "beschrijving": "Dit verkeersbord geeft aan dat je verplicht bent één van de pijlen te volgen.",
       "afbeeldingLink": "assets/Verkeersbord_D3b.png",
       "categorie": "Gebodsborden",
-      "gehaald": "0",
-      "videoLink": 4
+      "gehaald": "1",
+      "videoLink": 4,
+      "id": 21
     },
     {
       "naam": "Verplichte weg voor voetgangers.",
