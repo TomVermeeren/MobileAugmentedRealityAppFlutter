@@ -119,4 +119,3 @@ var World = {
         alert(error);
     },
 };
-

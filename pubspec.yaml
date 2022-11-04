@@ -72,7 +72,6 @@ flutter:
     - samples/03_MultipleTargets_1_MultipleTargets/js/
     - samples/03_MultipleTargets_1_MultipleTargets/css/
     - samples/03_MultipleTargets_1_MultipleTargets/assets/
-    - samples/03_MultipleTargets_1_MultipleTargets/assets/models/
   #Verkeersbord afbeeldingen
     - assets/Verkeersbord_D5.png
     - assets/Verkeersbord_A1-30zb.png
